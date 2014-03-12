@@ -1,1 +1,3 @@
-sprawdzam gita i nie wiem jak sie poslugiwac programem v
+chce zapisac zmiane za pomoca vima
+sprawdzam gita i nie wiem jak sie poslugiwac programem 
+
