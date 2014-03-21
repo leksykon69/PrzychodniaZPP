@@ -1,3 +1,0 @@
-PrzychodniaZPP
-==============
-PUPA
