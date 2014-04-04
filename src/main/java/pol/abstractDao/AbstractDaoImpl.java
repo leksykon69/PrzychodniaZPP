@@ -13,7 +13,11 @@ public abstract class AbstractDaoImpl<T extends IEntity> implements
 	private Class<T> type;
 
 	@PersistenceContext
-	protected EntityManager em;
+	private EntityManager em;
+	
+	protected EntityManager getEntityManager(){
+		return em;
+	}
 
 	public Class<T> getType() {
 		return type;
