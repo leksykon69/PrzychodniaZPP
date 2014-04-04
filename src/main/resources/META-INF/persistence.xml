@@ -3,13 +3,6 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
    <persistence-unit name="punit">
-       <class>pol.entity.DoctorEntity</class>
-       <class>pol.entity.MenuEntity</class>
-       <class>pol.entity.PatientEntity</class>
-       <class>pol.entity.PermissionEntity</class>
-       <class>pol.entity.RoleEntity</class>
-       <class>pol.entity.RoomEntity</class>
-       <class>pol.entity.UserEntity</class>
-       <class>pol.entity.VisitEntity</class>
+      
    </persistence-unit>
 </persistence>

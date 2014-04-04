@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 	<context:annotation-config/>
-	<context:component-scan base-package="pol" />
+	
 	
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -42,14 +42,4 @@
 	</bean>
 
 	
-	<bean id="metadataUtil" class="com.googlecode.genericdao.search.jpa.hibernate.HibernateMetadataUtil"
-		factory-method="getInstanceForEntityManagerFactory">
-		<constructor-arg ref="entityManagerFactory" />
-	</bean>
-	
-	<bean id="searchProcessor" class="com.googlecode.genericdao.search.jpa.JPASearchProcessor">
-		<constructor-arg ref="metadataUtil" />
-	</bean>
-
-
 </beans>
