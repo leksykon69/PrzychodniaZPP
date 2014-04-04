@@ -6,9 +6,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import pol.baseEntity.AbstractEntity;
+
 @Entity
 @Table(name = "user")
-public class UserEntity {
+public class UserEntity extends AbstractEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Integer id;

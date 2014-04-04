@@ -5,9 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import pol.baseEntity.AbstractEntity;
+
 @Entity
 @Table(name = "room")
-public class RoomEntity {
+public class RoomEntity extends AbstractEntity{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Integer id;

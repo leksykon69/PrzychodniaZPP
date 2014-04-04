@@ -6,10 +6,16 @@ import javax.persistence.Table;
 
 import org.joda.time.DateTime;
 
+import pol.baseEntity.AbstractEntity;
+
 @Entity
 @Table(name = "visit")
-public class VisitEntity {
+public class VisitEntity extends AbstractEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private Integer id;
 	private Integer doctorId;

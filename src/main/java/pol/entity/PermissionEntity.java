@@ -13,9 +13,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import pol.baseEntity.AbstractEntity;
+
 @Entity
 @Table(name = "permission")
-public class PermissionEntity {
+public class PermissionEntity extends AbstractEntity{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Integer id;
