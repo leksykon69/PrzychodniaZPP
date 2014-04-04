@@ -2,6 +2,10 @@
 
 <@mac.header />
 
-flt Przychodnia sdjbsd
+<@mac.form>
+	<@mac.panel title="Tytuł panelu">
+		<@mac.input />
+	</@mac.panel>		
+</@mac.form>
 
 <@mac.footer />
