@@ -5,37 +5,43 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.transaction.annotation.Transactional;
 
-public abstract class AbstractDaoImpl<T> implements AbstractDao<T>{
+import pol.baseEntity.IEntity;
 
-    private Class<T> type;
+public abstract class AbstractDaoImpl<T extends IEntity> implements
+		AbstractDao<T> {
 
-    @PersistenceContext
+	private Class<T> type;
+
+	@PersistenceContext
 	protected EntityManager em;
-    
-   
 
-    public Class<T> getType() {
-        return type;
-    }
+	public Class<T> getType() {
+		return type;
+	}
 
-    public AbstractDaoImpl() {
-//        this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    }
-    @Transactional
-	public T find(Integer id) {
-		return em.find(type, id);
-	}
-    @Transactional
-	public void delete(T obj) {
-    	em.remove(obj);
-	}
-    @Transactional
-	public void saveOrUpdate(T obj) {
-		em.persist(obj);
+	public AbstractDaoImpl() {
 		
 	}
 
+	@Transactional
+	public T find(Integer id) {
+		return em.find(type, id);
+	}
 
+	@Transactional
+	public void delete(T obj) {
+		em.remove(obj);
+		em.flush();
+	}
 
+	@Transactional
+	public void saveOrUpdate(T obj) {
+		if (obj.getId()==null) {
+			em.persist(obj);
+		} else {
+			em.merge(obj);
+		}
+		em.flush();
+	}
 
 }
