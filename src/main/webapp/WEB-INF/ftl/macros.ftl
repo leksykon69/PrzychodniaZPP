@@ -275,7 +275,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 				<@spring.bind path/>
 				<input id="${id}" name="${spring.status.expression}" <#if spring.status.value=="true" >checked </#if> type="checkbox" class="${classes}"/>
 			<#else>
-				<input id="${id}" type="checkbox" class="${classes}"/><b>${label}</b>
+				<input id="${id}" type="checkbox" class="${classes}"/>
 			</#if>	
 		</div>
 	</div>

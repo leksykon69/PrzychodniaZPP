@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
 
 import pol.baseEntity.AbstractEntity;
 
@@ -29,17 +27,12 @@ public class MenuEntity extends AbstractEntity {
 
 	@Id
 	@GeneratedValue
-	@NotNull
 	private Integer id;
 
 	@Column(name = "title")
-	@NotNull
-	@Max(100)
 	private String title;
 
 	@Column(name = "url")
-	@NotNull
-	@Max(300)
 	private String url;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
