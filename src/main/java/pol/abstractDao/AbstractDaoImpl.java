@@ -1,5 +1,7 @@
 package pol.abstractDao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,16 +17,16 @@ public abstract class AbstractDaoImpl<T extends IEntity> implements
 	@PersistenceContext
 	private EntityManager em;
 	
+	public AbstractDaoImpl(final Class<T> type) {
+		this.type = type;
+	}
+	
 	protected EntityManager getEntityManager(){
 		return em;
 	}
 
 	public Class<T> getType() {
 		return type;
-	}
-
-	public AbstractDaoImpl() {
-		
 	}
 
 	@Transactional
@@ -48,4 +50,9 @@ public abstract class AbstractDaoImpl<T extends IEntity> implements
 		em.flush();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<T> findAll() {
+		return em.createQuery("from " + type.getSimpleName()).getResultList();
+	}
 }

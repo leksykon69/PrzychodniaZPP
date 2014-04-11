@@ -1,10 +1,10 @@
 package pol.abstractController;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import pol.entity.MenuEntity;
 import pol.frontend.Message;
 import pol.frontend.MessageType;
+import pol.menuDao.MenuDao;
 import pol.spring.bind.editors.DateTimeEditor;
 import pol.spring.bind.editors.LocalTimeEditor;
 
@@ -26,6 +27,9 @@ public abstract class AbstractController {
 	public static final String MESSAGE = "message";
 	
 	protected static String pageTitle= "Przychodnia";
+
+	@Autowired
+	MenuDao menuDao;
 	
 	@ModelAttribute(PAGE_TITLE)
 	protected String getPageTitle(){
@@ -64,27 +68,9 @@ public abstract class AbstractController {
 	}
 	
 	
-	
-	//FIXME Zmienić na dynamicznie wyciągane z bazy danych
 	@ModelAttribute(MENU)
 	protected List<MenuEntity> getMenu(){
-		List<MenuEntity> result = new LinkedList<MenuEntity>();
-		MenuEntity menuElement = new MenuEntity();
-		menuElement.setId(1);
-		menuElement.setTitle("Wizyty");
-		menuElement.setUrl("http://www.dupa.pl");
-		result.add(menuElement);
-		menuElement = new MenuEntity();
-		menuElement.setId(2);
-		menuElement.setTitle("Lekarze");
-		menuElement.setUrl("http://www.dupa.pl");
-		result.add(menuElement);
-		menuElement = new MenuEntity();
-		menuElement.setId(3);
-		menuElement.setTitle("Pomieszczenia");
-		menuElement.setUrl("http://www.dupa.pl");
-		result.add(menuElement);
-		return result;
+		return menuDao.findAll();
 	}	
 	
 }

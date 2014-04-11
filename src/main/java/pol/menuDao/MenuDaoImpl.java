@@ -9,5 +9,8 @@ import pol.entity.MenuEntity;
 public class MenuDaoImpl extends AbstractDaoImpl<MenuEntity> implements
 		MenuDao {
 
+	public MenuDaoImpl() {
+		super(MenuEntity.class);
+	}
 
 }
