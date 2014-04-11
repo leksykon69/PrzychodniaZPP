@@ -40,7 +40,32 @@
 	</@mac.panel>
 	
 	<@mac.panel title="Tabele">
-		Cooming soon...
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>lp.</th>
+					<th>Imię</th>
+					<th>Nazwisko</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Anna</td>
+					<td>Nowak</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Jan</td>
+					<td>Kowalski</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Krzysztof</td>
+					<td>Wiśniewski</td>
+				</tr>
+			<tbody>
+		</table>
 	</@mac.panel>			
 </@mac.form>
 
