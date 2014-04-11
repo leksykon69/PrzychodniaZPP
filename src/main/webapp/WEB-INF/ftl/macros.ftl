@@ -161,7 +161,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 					minuteStep: 5,
 					showSeconds: false,
 					showMeridian: false,
-					defaultTime: false
+					defaultTime: '00:00'
 				});
         
 				$('.close-message').click(function(){
