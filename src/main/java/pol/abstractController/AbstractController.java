@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import pol.entity.MenuEntity;
 import pol.frontend.Message;
 import pol.frontend.MessageType;
-import pol.menuDao.MenuDao;
+import pol.menu.dao.MenuDao;
 import pol.spring.bind.editors.DateTimeEditor;
 import pol.spring.bind.editors.LocalTimeEditor;
 

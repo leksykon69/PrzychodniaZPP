@@ -1,4 +1,4 @@
-package pol.menuDao;
+package pol.menu.dao;
 
 import pol.abstractDao.AbstractDao;
 import pol.entity.MenuEntity;
