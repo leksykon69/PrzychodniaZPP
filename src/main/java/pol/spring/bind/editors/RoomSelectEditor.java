@@ -1,29 +1,19 @@
 package pol.spring.bind.editors;
 
-import org.springframework.beans.propertyeditors.PropertiesEditor;
-
+import pol.abstractDao.AbstractDao;
 import pol.entity.RoomEntity;
+import pol.room.dao.RoomDao;
 
-public class RoomSelectEditor extends PropertiesEditor{
+public class RoomSelectEditor extends AbstractEntityEditor<RoomEntity> {
 
 	@Override
-	public String getAsText() {
-		if(getValue() instanceof RoomEntity )
-		return ((RoomEntity)getValue()).getId().toString();
-		return "";
+	public AbstractDao<?> getDao() {
+		return context.getBean(RoomDao.class);
 	}
-	
-	
-	
+
 	@Override
-	public void setAsText(String text) throws IllegalArgumentException {
-		if(text != null && text != ""){
-			RoomEntity entity = new RoomEntity();
-			entity.setId(Integer.valueOf(text));
-			
-			setValue(entity);
-		}else{
-			setValue(null);
-		}
+	public Class<?> getClazz() {
+		return RoomEntity.class;
 	}
+
 }

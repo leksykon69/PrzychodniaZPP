@@ -1,29 +1,19 @@
 package pol.spring.bind.editors;
 
-import org.springframework.beans.propertyeditors.PropertiesEditor;
-
+import pol.abstractDao.AbstractDao;
+import pol.doctor.dao.DoctorDao;
 import pol.entity.DoctorEntity;
 
-public class DoctorSelectEditor extends PropertiesEditor{
+public class DoctorSelectEditor extends AbstractEntityEditor<DoctorEntity> {
 
 	@Override
-	public String getAsText() {
-		if(getValue() instanceof DoctorEntity )
-		return ((DoctorEntity)getValue()).getId().toString();
-		return "";
+	public AbstractDao<?> getDao() {
+		return context.getBean(DoctorDao.class);
 	}
-	
-	
-	
+
 	@Override
-	public void setAsText(String text) throws IllegalArgumentException {
-		if(text != null && text != ""){
-			DoctorEntity entity = new DoctorEntity();
-			entity.setId(Integer.valueOf(text));
-			
-			setValue(entity);
-		}else{
-			setValue(null);
-		}
+	public Class<DoctorEntity> getClazz() {
+		return DoctorEntity.class;
 	}
+
 }
