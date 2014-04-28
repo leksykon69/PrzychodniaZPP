@@ -1,5 +1,9 @@
 package pol.patient.service.impl;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +23,17 @@ public class PatientServiceImpl extends AbstractServiceImpl<PatientEntity>
 	@Override
 	protected AbstractDao<PatientEntity> getDao() {
 		return patientDao;
+	}
+
+	public Map<String, String> getPatientComboOptions(boolean showEmptyOption) {
+		Map<String, String> result = new LinkedHashMap<String, String>();
+		if (showEmptyOption) {
+			result.put("", "");
+		}
+		List<PatientEntity> patients = patientDao.findAllOrdered();
+		for (PatientEntity patient : patients) {
+			result.put(patient.getId().toString(), patient.getFullName());
+		}
+		return result;
 	}
 }

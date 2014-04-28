@@ -16,6 +16,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 
 ** panel #NESTED - tworzy panel do formularza
 * @classes
+* @titleClasses
 * @title
 
 ** row #NESTED - wiersz kontrolek na panelu
@@ -88,6 +89,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 	<head>
 		<title>${pageTitle!}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-theme.min.css" />
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap.min.css" />
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-timepicker.min.css" />
@@ -98,6 +100,16 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.js"></script>
 		<script type="text/javascript" src="/Przychodnia/js/bootstrap-timepicker.min.js"></script>
 		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.pl.js"></script>
+
+		<style>
+			body {  
+				min-width: ${windowWidth.minWindowWidth}; 
+			}		
+		
+			*.container{
+				width: ${windowWidth.contentWidth};
+			}
+		</style>
 		
 		<style>
 			h7.menu-element{
@@ -145,6 +157,10 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 				position: relative;
 				padding-left: 15px;
 			}
+			
+			*.no-padding{
+				padding: 0px;
+			}
 		</style>
 		
 		<script>
@@ -167,23 +183,45 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 				$('.close-message').click(function(){
 					$('.message').slideUp();
 				});
-			})
+			});
 			
+			
+			function openNewWindow(url, type){
+				var height, width, fullscreen;
+				switch(type){
+					case 'long':
+						width= "1300px";
+						fullscreen ="yes";
+						break;
+					case 'medium':
+						width= "900px";
+						fullscreen = "no";
+						break;
+					case 'short':
+						height= "600px";
+						fullscreen = "no";
+						break;	
+				}
+				height= "600px";
+				window.open(url, "_blank","width="+width+",height="+height)
+			}
 		</script>
 		<#nested />
 	</head>
 	<body>
-		<div class="panel panel-default">
-			<div class="panel-heading menu">
-				
-				<a href="/Przychodnia/" class="menu-element"><h7 class="menu-element"><b>Przychodnia</b></h7></a>
-			<#if menu??>
-				<#list menu as menuElement>
-				<a class="menu-element" href="${menuElement.url}"><h7 class="menu-element"><b>${menuElement.title}</b></h7></a>
-				</#list>
-			</#if>
+		<#if showMenu>
+			<div class="panel panel-default">
+				<div class="panel-heading menu">
+					
+					<a href="/Przychodnia/" class="menu-element"><h7 class="menu-element"><b>Przychodnia</b></h7></a>
+				<#if menu??>
+					<#list menu as menuElement>
+					<a class="menu-element" href="${menuElement.url}"><h7 class="menu-element"><b>${menuElement.title}</b></h7></a>
+					</#list>
+				</#if>
+				</div>
 			</div>
-		</div>
+		</#if>
 		<div class="container">
 		<#if message??>
 		<div class="panel panel-default message">
@@ -202,12 +240,12 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 </html>
 </#macro>
 
-<#macro panel title="" classes="">
+<#macro panel title="" classes="" titleClasses="" contentClasses="">
 	<div class="panel panel-default ${classes}">
 		<#if title!="">
-			<div class="panel-heading">${title}</div>
+			<div class="panel-heading ${titleClasses}">${title}</div>
 		</#if>	
-		<div class="panel-body">
+		<div class="panel-body ${contentClasses}}">
 			<div class="container-fluid">
 			<#nested />
 			</div>	
@@ -274,6 +312,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 			<#if path!="">
 				<@spring.bind path/>
 				<input id="${id}" name="${spring.status.expression}" <#if spring.status.value=="true" >checked </#if> type="checkbox" class="${classes}"/>
+				<input type="hidden" value="on" name="_${spring.status.expression}"/>
 			<#else>
 				<input id="${id}" type="checkbox" class="${classes}"/>
 			</#if>	
@@ -322,9 +361,9 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 			<div class="input-group date">
 			<#if path!="">	
 				<@spring.bind path/>				
-				<input id="${id}" name="${spring.status.expression}" type="text" class="form-control input-sm" value="${spring.status.value}">
+				<input id="${id}" name="${spring.status.expression}" type="text" class="form-control input-sm" value="${spring.status.value}" readonly>
 			<#else>
-				<input id="${id}" type="text" class="form-control input-sm">
+				<input id="${id}" type="text" class="form-control input-sm" readonly>
 			</#if>	
 				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 			</div>
@@ -343,9 +382,9 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 			<div class="input-group bootstrap-timepicker">
 			<#if path!="">	
 				<@spring.bind path/>
-				<input id="${id}" name="${spring.status.expression}" value="${spring.status.value}" type="text" class="form-control input-sm">
+				<input id="${id}" name="${spring.status.expression}" value="${spring.status.value}" type="text" class="form-control input-sm" readonly>
 			<#else>	
-				<input id="${id}" type="text" class="form-control input-sm">
+				<input id="${id}" type="text" class="form-control input-sm" readonly>
 			</#if>
 				<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>    
 	       	</div>
@@ -378,6 +417,11 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 <#macro removeButton value="" classes="" id="" name="" submit=false>
 	<@button value= "<i class='glyphicon glyphicon-remove'></i> " + value classes="btn-danger " + classes id=id name=name submit=submit />
 </#macro>
+
+<#macro editButton value="" classes="" id="" name="" submit=false>
+	<@button value= "<i class='glyphicon glyphicon-pencil'></i> " + value classes="btn-success	 " + classes id=id name=name submit=submit />
+</#macro>
+
 
 <#macro closeButton value="" classes="" id="" name="" submit=false>
 	<#if value==""><#assign resultValue="Zamknij" /><#else><#assign resultValue=value /></#if>

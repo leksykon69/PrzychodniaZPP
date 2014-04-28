@@ -1,8 +1,9 @@
 package pol.visitsController;
 
-import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -12,10 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pol.abstractController.AbstractController;
+import pol.doctor.service.DoctorService;
 import pol.entity.DoctorEntity;
 import pol.entity.RoomEntity;
+import pol.entity.VisitEntity;
+import pol.frontend.WindowWidth;
+import pol.room.service.RoomService;
 import pol.spring.bind.editors.DoctorSelectEditor;
 import pol.spring.bind.editors.RoomSelectEditor;
+import pol.visit.service.VisitService;
 
 @Controller
 @RequestMapping(value="/visit/generator")
@@ -26,6 +32,15 @@ public class VisitsGeneratorController extends AbstractController{
 	private static final String DOCTORS = "doctors";
 	private static final String ROOMS = "rooms"; 
 
+	@Autowired
+	private VisitService visitService;
+
+	@Autowired
+	private DoctorService doctorService;
+
+	@Autowired
+	private RoomService roomService;
+
 	@RequestMapping(method=RequestMethod.GET)
 	public String proccess(Model model){
 		model.addAttribute(FORM, new VisitsGeneratorForm());
@@ -34,7 +49,8 @@ public class VisitsGeneratorController extends AbstractController{
 	
 	@RequestMapping(method = RequestMethod.POST, params = "generate")
 	public String doGenerate(Model model, @ModelAttribute(FORM) VisitsGeneratorForm form){
-		addSuccessMessage(model, "Udało się wysłać żądanie");
+		List<VisitEntity> result = visitService.generateAndSaveVisits(form);
+		addSuccessMessage(model, "Wygenerowano " + result.size() + " wizyt");
 		return VIEW_NAME;
 	}
 	
@@ -45,20 +61,12 @@ public class VisitsGeneratorController extends AbstractController{
 	
 	@ModelAttribute(DOCTORS)
 	public Map<String, String> getDoctors(){
-		Map<String, String> result = new LinkedHashMap<String, String>();
-		result.put("1", "Adam Kowalski");
-		result.put("2", "Joanna Nowak");
-		result.put("3", "Krzysztof Wiśniewski");
-		return result;
+		return doctorService.getDoctorComboOptions(false);
 	}
 	
 	@ModelAttribute(ROOMS)
 	public Map<String, String> getRooms(){
-		Map<String, String> result = new LinkedHashMap<String, String>();
-		result.put("1", "Pokój 1");
-		result.put("2", "Pokój 2");
-		result.put("3", "Pokój 3");
-		return result;
+		return roomService.getRoomComboOptions(false);
 	}
 	
 	@Override
@@ -66,6 +74,11 @@ public class VisitsGeneratorController extends AbstractController{
 		return false;
 	}
 	
+	@Override
+	protected WindowWidth getWindowWidth() {
+		return WindowWidth.MEDIUM;
+	}
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(DoctorEntity.class, new DoctorSelectEditor());

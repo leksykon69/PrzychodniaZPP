@@ -1,5 +1,9 @@
 package pol.room.service.impl;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,4 +24,17 @@ public class RoomServiceImpl extends AbstractServiceImpl<RoomEntity> implements
 	protected AbstractDao<RoomEntity> getDao() {
 		return roomDao;
 	}
+
+	public Map<String, String> getRoomComboOptions(boolean showEmptyOption) {
+		Map<String, String> result = new LinkedHashMap<String, String>();
+		if (showEmptyOption) {
+			result.put("", "");
+		}
+		List<RoomEntity> rooms = roomDao.findAllOrdered();
+		for (RoomEntity room : rooms) {
+			result.put(room.getId().toString(), room.getFullName());
+		}
+		return result;
+	}
+
 }

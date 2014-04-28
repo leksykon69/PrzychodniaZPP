@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import pol.entity.MenuEntity;
 import pol.frontend.Message;
 import pol.frontend.MessageType;
+import pol.frontend.WindowWidth;
 import pol.menu.dao.MenuDao;
 import pol.spring.bind.editors.DateTimeEditor;
 import pol.spring.bind.editors.LocalTimeEditor;
@@ -25,6 +26,7 @@ public abstract class AbstractController {
 	public static final String SHOW_MENU = "showMenu"; 
 	public static final String MENU = "menu";
 	public static final String MESSAGE = "message";
+	public static final String WINDOW_WIDTH = "windowWidth";
 	
 	protected static String pageTitle= "Przychodnia";
 
@@ -41,6 +43,11 @@ public abstract class AbstractController {
 		return true;
 	}
 	
+	@ModelAttribute(WINDOW_WIDTH)
+	protected WindowWidth getWindowWidth() {
+		return WindowWidth.LONG;
+	}
+
 	protected void addSuccessMessage(Model model, String message){
 		model.addAttribute(MESSAGE, new Message(message, MessageType.SUCCESS));
 	}

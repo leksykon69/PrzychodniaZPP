@@ -1,10 +1,17 @@
 package pol.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import pol.baseEntity.AbstractEntity;
 
@@ -17,12 +24,24 @@ public class VisitEntity extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GenericGenerator(name = "VisitAutoincrement", strategy = "increment")
+	@GeneratedValue(generator = "VisitAutoincrement")
 	private Integer id;
-	private Integer doctorId;
-	private Integer roomId;
-	private Integer patientId;
-	private DateTime startTime;
-	private DateTime endTime;
+
+	@ManyToOne
+	@JoinColumn(name = "doctorId")
+	private DoctorEntity doctor;
+
+	@ManyToOne
+	@JoinColumn(name = "roomId")
+	private RoomEntity room;
+
+	@ManyToOne
+	@JoinColumn(name = "patientId")
+	private PatientEntity patient;
+
+	private Date startTime;
+	private Date endTime;
 	private String description;
 
 	public Integer getId() {
@@ -33,44 +52,44 @@ public class VisitEntity extends AbstractEntity {
 		this.id = id;
 	}
 
-	public Integer getDoctorId() {
-		return doctorId;
+	public DoctorEntity getDoctor() {
+		return doctor;
 	}
 
-	public void setDoctorId(Integer doctorId) {
-		this.doctorId = doctorId;
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
 	}
 
-	public Integer getRoomId() {
-		return roomId;
+	public RoomEntity getRoom() {
+		return room;
 	}
 
-	public void setRoomId(Integer roomId) {
-		this.roomId = roomId;
+	public void setRoom(RoomEntity room) {
+		this.room = room;
 	}
 
-	public Integer getPatientId() {
-		return patientId;
+	public PatientEntity getPatient() {
+		return patient;
 	}
 
-	public void setPatientId(Integer patientId) {
-		this.patientId = patientId;
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
 	}
 
 	public DateTime getStartTime() {
-		return startTime;
+		return new DateTime(startTime);
 	}
 
 	public void setStartTime(DateTime startTime) {
-		this.startTime = startTime;
+		this.startTime = startTime.toDate();
 	}
 
 	public DateTime getEndTime() {
-		return endTime;
+		return new DateTime(endTime);
 	}
 
 	public void setEndTime(DateTime endTime) {
-		this.endTime = endTime;
+		this.endTime = endTime.toDate();
 	}
 
 	public String getDescription() {
@@ -79,5 +98,24 @@ public class VisitEntity extends AbstractEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getStartHour() {
+		DateTime time = getStartTime();
+		return DateTimeFormat.forPattern("HH:mm").print(time);
+	}
+
+	public String getEndHour() {
+		DateTime time = getEndTime();
+		return DateTimeFormat.forPattern("HH:mm").print(time);
+	}
+
+	public boolean isArchive() {
+		return new Date().after(endTime);
+	}
+
+	public boolean isActual() {
+		Date now = new Date();
+		return now.before(endTime) && now.after(startTime);
 	}
 }

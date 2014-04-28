@@ -1,5 +1,7 @@
 package pol.doctor.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import pol.abstractDao.AbstractDaoImpl;
@@ -12,6 +14,12 @@ public class DoctorDaoImpl extends AbstractDaoImpl<DoctorEntity> implements
 
 	public DoctorDaoImpl() {
 		super(DoctorEntity.class);
+	}
+
+	public List<DoctorEntity> findAllOrdered() {
+		return getEntityManager().createNamedQuery(
+				DoctorEntity.FIND_ALL_ORDERED, DoctorEntity.class)
+				.getResultList();
 	}
 
 }

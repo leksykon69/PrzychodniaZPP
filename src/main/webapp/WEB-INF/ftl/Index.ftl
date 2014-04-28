@@ -16,10 +16,12 @@
 			<@mac.saveButton value="Save Button" />
 			<@mac.addButton value="Add Button" />
 			<@mac.okButton value="OK Button" />
+			<@mac.editButton value="Edit Button" />
 			<@mac.removeButton value="Remove Button" />
 			<@mac.closeButton />
 		</@mac.buttonGroup>	
 		<@mac.saveButton />
+		<@mac.editButton />
 		<@mac.addButton />
 		<@mac.okButton />
 		<@mac.removeButton />

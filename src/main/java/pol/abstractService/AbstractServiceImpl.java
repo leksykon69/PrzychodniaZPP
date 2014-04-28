@@ -1,5 +1,6 @@
 package pol.abstractService;
 
+import java.util.Collection;
 import java.util.List;
 
 import pol.abstractDao.AbstractDao;
@@ -22,6 +23,12 @@ public abstract class AbstractServiceImpl<T> implements AbstractService<T> {
 
 	public void save(T obj) {
 		getDao().saveOrUpdate(obj);
+	}
+
+	public void saveAll(Collection<T> obj) {
+		for (T entity : obj) {
+			save(entity);
+		}
 	}
 
 }

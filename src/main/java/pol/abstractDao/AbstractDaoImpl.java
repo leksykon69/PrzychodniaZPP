@@ -28,7 +28,7 @@ public abstract class AbstractDaoImpl<T extends IEntity> implements
 	public Class<T> getType() {
 		return type;
 	}
-
+	
 	@Transactional
 	public T find(Integer id) {
 		return em.find(type, id);

@@ -1,5 +1,6 @@
 package pol.abstractService;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface AbstractService<T> {
@@ -11,4 +12,6 @@ public interface AbstractService<T> {
 	public void delete(T obj);
 
 	public void save(T obj);
+
+	public void saveAll(Collection<T> obj);
 }
