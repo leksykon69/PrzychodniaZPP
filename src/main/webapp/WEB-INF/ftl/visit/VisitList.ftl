@@ -4,6 +4,14 @@
 			$("#generateNewVisits").click(function(){
 				openNewWindow("/Przychodnia/visit/generator", "medium");
 			});
+			$("#addNewVisit").click(function(){
+				openNewWindow("/Przychodnia/visit/edit", "short");
+			});
+			$(".edit-button").click(function(){
+				openNewWindow("/Przychodnia/visit/edit?id="+$(this).data("id"), "short");
+			});
+			
+
 		})
 	</script>
 	
@@ -65,6 +73,7 @@
 			</div>
 		</div>
 		<@mac.buttonGroup classes="pull-right">
+			<@mac.addButton id="addNewVisit" value="Dodaj nową wizytę" />
 			<@mac.button id="generateNewVisits" value="Wygeneruj nowe wizyty" />
 			<@mac.button value="Pokaż" id="show" name="show" submit=true />
 		</@mac.buttonGroup>
@@ -81,20 +90,20 @@
 						<th>Od</th>
 						<th>Do</th>
 						<th>Lekarz</th>
-						<th>Pokój</th>
 						<th>Pacjent</th>
+						<th>Pokój</th>
 						<th></th>
 					</tr>	
 				</thead>
 				<tbody>
 					<#list visits[key] as visit>
 						<tr <#if visit.actual>class="success"<#elseif visit.archive> class="active"</#if>>
-							<td style="padding: 0; width: 40px" ><@mac.editButton /></td>
+							<td style="padding: 0; width: 40px" ><@mac.editButton classes="edit-button" additional="data-id='"+visit.id+"'"/></td>
 							<td>${visit.startHour}</td>
 							<td>${visit.endHour}</td>
-							<td>${visit.doctor.fullName}</td>
-							<td>${visit.room.fullName}</td>
+							<td><#if visit.doctor??>${visit.doctor.fullName}</#if></td>
 							<td><#if visit.patient??>${visit.patient.fullName}</#if></td>
+							<td><#if visit.room??>${visit.room.fullName}</#if></td>
 							<td style="padding: 0; width: 40px"><@mac.removeButton /></td>
 						</tr>
 					</#list>

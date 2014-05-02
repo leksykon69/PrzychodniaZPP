@@ -13,7 +13,7 @@ public class PatientSelectEditor extends AbstractEntityEditor<PatientEntity> {
 
 	@Override
 	public Class<?> getClazz() {
-		return PatientDao.class;
+		return PatientEntity.class;
 	}
 
 }

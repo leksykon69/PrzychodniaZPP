@@ -10,7 +10,7 @@ public enum WindowWidth {
 		case MEDIUM:
 			return "820px";
 		case SHORT:
-			return "400px";
+			return "440px";
 		default:
 			return "0";
 		}
@@ -23,7 +23,7 @@ public enum WindowWidth {
 		case MEDIUM:
 			return "800px";
 		case SHORT:
-			return "340px";
+			return "420px";
 		default:
 			return "0";
 		}

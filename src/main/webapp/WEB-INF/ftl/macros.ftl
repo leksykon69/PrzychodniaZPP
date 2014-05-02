@@ -90,6 +90,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<title>${pageTitle!}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-theme.min.css" />
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap.min.css" />
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-timepicker.min.css" />
@@ -183,11 +184,17 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 				$('.close-message').click(function(){
 					$('.message').slideUp();
 				});
+				
+				$('.close-button').click(function(){
+					window.close();
+				});
+				
 			});
 			
 			
 			function openNewWindow(url, type){
 				var height, width, fullscreen;
+				height= "600px";
 				switch(type){
 					case 'long':
 						width= "1300px";
@@ -198,11 +205,11 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 						fullscreen = "no";
 						break;
 					case 'short':
-						height= "600px";
+						width= "500px";
+						height= "400px";
 						fullscreen = "no";
 						break;	
 				}
-				height= "600px";
 				window.open(url, "_blank","width="+width+",height="+height)
 			}
 		</script>
@@ -398,32 +405,32 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 	</div>
 </#macro>
 
-<#macro button value="" classes="" id="" name="" submit=false>
-	<button name="${name}" id="${id}" <#if submit>type="submit"<#else>type="button"</#if> class="btn btn-default ${classes}">${value}</button>
+<#macro button value="" classes="" id="" name="" additional="" submit=false>
+	<button name="${name}" ${additional} id="${id}" <#if submit>type="submit"<#else>type="button"</#if> class="btn btn-default ${classes}">${value}</button>
 </#macro>
 
-<#macro saveButton value="" classes="" id="" name="" submit=false>
-	<@button value= "<i class='glyphicon glyphicon-floppy-disk'></i> " + value classes="btn-success " + classes id=id name=name submit=submit />
+<#macro saveButton value="" classes="" id="" name="" additional="" submit=false>
+	<@button value= "<i class='glyphicon glyphicon-floppy-disk'></i> " + value classes="btn-success " + classes id=id name=name additional=additional submit=submit />
 </#macro>
 
-<#macro addButton value="" classes="" id="" name="" submit=false>
-	<@button value= "<i class='glyphicon glyphicon-plus'></i> " + value classes="btn-success " + classes id=id name=name submit=submit />
+<#macro addButton value="" classes="" id="" name="" additional="" submit=false>
+	<@button value= "<i class='glyphicon glyphicon-plus'></i> " + value classes="btn-success " + classes id=id name=name additional=additional submit=submit />
 </#macro>
 
-<#macro okButton value="" classes="" id="" name="" submit=false>
-	<@button value= "<i class='glyphicon glyphicon-ok'></i> " + value classes="btn-success " + classes id=id name=name submit=submit />
+<#macro okButton value="" classes="" id="" name="" additional="" submit=false>
+	<@button value= "<i class='glyphicon glyphicon-ok'></i> " + value classes="btn-success " + classes id=id name=name additional=additional submit=submit />
 </#macro>
 
-<#macro removeButton value="" classes="" id="" name="" submit=false>
-	<@button value= "<i class='glyphicon glyphicon-remove'></i> " + value classes="btn-danger " + classes id=id name=name submit=submit />
+<#macro removeButton value="" classes="" id="" name="" additional="" submit=false>
+	<@button value= "<i class='glyphicon glyphicon-remove'></i> " + value classes="btn-danger " + classes id=id name=name additional=additional submit=submit />
 </#macro>
 
-<#macro editButton value="" classes="" id="" name="" submit=false>
-	<@button value= "<i class='glyphicon glyphicon-pencil'></i> " + value classes="btn-success	 " + classes id=id name=name submit=submit />
+<#macro editButton value="" classes="" id="" name="" additional="" submit=false>
+	<@button value= "<i class='glyphicon glyphicon-pencil'></i> " + value classes="btn-success	 " + classes id=id name=name additional=additional submit=submit />
 </#macro>
 
 
-<#macro closeButton value="" classes="" id="" name="" submit=false>
+<#macro closeButton value="" classes="" id="" name="" additional="" submit=false>
 	<#if value==""><#assign resultValue="Zamknij" /><#else><#assign resultValue=value /></#if>
-	<@button value=resultValue  classes="btn-primary " + classes id=id name=name submit=submit />
+	<@button value=resultValue  classes="btn-primary close-button" + classes id=id name=name additional=additional submit=submit />
 </#macro>
