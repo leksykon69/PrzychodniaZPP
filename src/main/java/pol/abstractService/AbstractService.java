@@ -11,7 +11,7 @@ public interface AbstractService<T> {
 
 	public void delete(T obj);
 
-	public void save(T obj);
+	public T save(T obj);
 
-	public void saveAll(Collection<T> obj);
+	public List<T> saveAll(Collection<T> obj);
 }

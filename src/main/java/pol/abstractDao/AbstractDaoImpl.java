@@ -41,13 +41,14 @@ public abstract class AbstractDaoImpl<T extends IEntity> implements
 	}
 
 	@Transactional
-	public void saveOrUpdate(T obj) {
+	public T saveOrUpdate(T obj) {
 		if (obj.getId()==null) {
 			em.persist(obj);
 		} else {
 			em.merge(obj);
 		}
 		em.flush();
+		return obj;
 	}
 
 	@SuppressWarnings("unchecked")

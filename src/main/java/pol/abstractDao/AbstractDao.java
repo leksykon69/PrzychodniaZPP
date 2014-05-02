@@ -8,5 +8,6 @@ public interface AbstractDao<T> {
 
 	public List<T> findAll();
     public void delete(T obj);
-    public void saveOrUpdate(T obj);
+
+	public T saveOrUpdate(T obj);
 }

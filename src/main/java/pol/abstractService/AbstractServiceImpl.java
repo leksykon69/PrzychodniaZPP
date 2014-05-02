@@ -1,6 +1,7 @@
 package pol.abstractService;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import pol.abstractDao.AbstractDao;
@@ -21,14 +22,16 @@ public abstract class AbstractServiceImpl<T> implements AbstractService<T> {
 		getDao().delete(obj);
 	}
 
-	public void save(T obj) {
-		getDao().saveOrUpdate(obj);
+	public T save(T obj) {
+		return getDao().saveOrUpdate(obj);
 	}
 
-	public void saveAll(Collection<T> obj) {
+	public List<T> saveAll(Collection<T> obj) {
+		List<T> result = new LinkedList<T>();
 		for (T entity : obj) {
-			save(entity);
+			result.add(save(entity));
 		}
+		return result;
 	}
 
 }
