@@ -10,8 +10,11 @@
 			$(".edit-button").click(function(){
 				openNewWindow("/Przychodnia/visit/edit?id="+$(this).data("id"), "short");
 			});
+			$(".remove-button").click(function(){
+				if(confirm('Czy na pewno chcesz usunąć wizytę?'))
+					sendPost("", {id: $(this).data("id"), remove: "remove"});
+			});
 			
-
 		})
 	</script>
 	
@@ -104,7 +107,7 @@
 							<td><#if visit.doctor??>${visit.doctor.fullName}</#if></td>
 							<td><#if visit.patient??>${visit.patient.fullName}</#if></td>
 							<td><#if visit.room??>${visit.room.fullName}</#if></td>
-							<td style="padding: 0; width: 40px"><@mac.removeButton /></td>
+							<td style="padding: 0; width: 40px"><@mac.removeButton classes="remove-button" additional="data-id='"+visit.id+"'"/></td>
 						</tr>
 					</#list>
 				</tbody>

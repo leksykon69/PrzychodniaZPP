@@ -12,6 +12,7 @@
 		<@mac.datepicker label="DatePicker" />
 		<@mac.timepicker label="TimePicker" />
 		<@mac.checkbox label = "CheckBox" />
+		<@mac.textarea label = "Textarea" />
 		<@mac.buttonGroup classes="pull-right">	
 			<@mac.button value="Zwykły Button" />
 			<@mac.saveButton value="Save Button" />

@@ -11,6 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pol.abstractController.AbstractController;
@@ -62,6 +63,15 @@ public class VisitsListController extends AbstractController {
 		prepareForm(form, model);
 		model.addAttribute(VISITS, visitService.getVisitToDisplayList(form));
 		return VIEW_NAME;
+	}
+
+	@RequestMapping(method = { RequestMethod.POST }, params = "remove")
+	public String remove(Model model,
+			@ModelAttribute(FORM) VisitsListForm form,
+			@RequestParam("id") Integer id) {
+		visitService.delete(visitService.find(id));
+		addSuccessMessage(model, "Pomyślnie usunięto wizytę");
+		return show(model, form);
 	}
 
 	private void prepareForm(VisitsListForm form, Model model) {

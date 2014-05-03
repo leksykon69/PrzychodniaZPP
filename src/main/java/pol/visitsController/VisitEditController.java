@@ -54,7 +54,7 @@ public class VisitEditController extends AbstractController {
 			@RequestParam(value = "id", required = false) Integer id) {
 		VisitEntity visit = id == null ? null : visitService.find(id);
 		model.addAttribute(FORM, new VisitEditForm(visit));
-		return VIEW_NAME;
+		return getViewName();
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, params = "save")
@@ -62,7 +62,7 @@ public class VisitEditController extends AbstractController {
 		form.setVisit(visitService.save(form.getVisit()));
 		model.addAttribute(FORM, form);
 		addSuccessMessage(model, "Pomyślnie zapisano Wizytę");
-		return VIEW_NAME;
+		return getViewName();
 	}
 
 	@Override
@@ -103,5 +103,9 @@ public class VisitEditController extends AbstractController {
 				new PatientSelectEditor());
 		binder.registerCustomEditor(RoomEntity.class, new RoomSelectEditor());
 		super.initBinder(binder);
+	}
+
+	protected String getViewName() {
+		return VIEW_NAME;
 	}
 }

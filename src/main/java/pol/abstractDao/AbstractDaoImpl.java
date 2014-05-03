@@ -36,7 +36,7 @@ public abstract class AbstractDaoImpl<T extends IEntity> implements
 
 	@Transactional
 	public void delete(T obj) {
-		em.remove(obj);
+		em.remove(em.contains(obj) ? obj : em.merge(obj));
 		em.flush();
 	}
 

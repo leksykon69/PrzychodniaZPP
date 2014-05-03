@@ -34,6 +34,14 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 * @placeholder - ta wartość wyświetli się jeśli nic nie będzie wpisane w polu
 * @password - true jeśli chcesz aby zamiast literek pojawiały się kropki
 
+
+** textarea - pole tekstowe
+* @path
+* @if
+* @label
+* @classes
+* @rows
+
 ** checkbox
 * @path
 * @id
@@ -53,6 +61,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 * @classes
 * @options - oczywiście najbezpieczniej jest użyć mapy stringów
 * @multiple
+* @combobox
 
 ** datepicker
 * @path
@@ -75,11 +84,10 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 *** wersje buttona :
 ** saveButton - zielony przycisk z dyskietką
 ** addButton - zielony przycisk z plusem
+** editButton - zielony przycisk z ołówkiem
 ** okButton - zielony przycisk z ptaszkiem
 ** removeButton - czerwony przycisk z krzyżykiem
 ** closeButton - niebieski przycisk, jesli nie podasz value wstawi automatycznie slowo "Zamknij"
-
-
 
 -->
 
@@ -302,7 +310,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 	</form>
 </#macro>
 
-<#macro input path="" id="" label="" classes="" placeholder="" password=false>
+<#macro input path="" id="" label="" classes="" placeholder="" password=false readonly=false>
 	<div class="form-group">
 		<#if label!="">
 			
@@ -313,12 +321,24 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<div class="input-panel">
 			<#if path!="">
 				<@spring.bind path/>	
-				<input id="${id}" name="${spring.status.expression}" value="${spring.status.value?default("")}" type="<#if password>password<#else>text</#if>" class="form-control input-sm ${classes}" placeholder="${placeholder}"/>
+				<input id="${id}" name="${spring.status.expression}" value="${spring.status.value?default("")}" type="<#if password>password<#else>text</#if>" class="form-control input-sm ${classes}" placeholder="${placeholder}" <#if readonly>readonly</#if> />
 			<#else>
-				<input id="${id}" type="<#if password>password<#else>text</#if>" class="form-control input-sm ${classes}" placeholder="${placeholder}"/>
+				<input id="${id}" type="<#if password>password<#else>text</#if>" class="form-control input-sm ${classes}" placeholder="${placeholder}" <#if readonly>readonly</#if> />
 			</#if>
 		</div>
 	</div>
+</#macro>
+
+<#macro textarea path="" id="" label="" classes="" rows=3 readonly=false>
+	<div class="form-group">
+		<label>${label}</label>
+		<#if path!="">
+			<@spring.bind path/>
+			<textarea id="${id}" name="${spring.status.expression}" class="form-control ${classes}" rows="${rows}" <#if readonly>readonly</#if>>${spring.status.value?default("")}</textarea>
+		<#else>
+			<textarea id="${id}" class="form-control ${classes}" rows="${rows}" <#if readonly>readonly</#if>></textarea>
+		</#if>	
+	</div>	
 </#macro>
 
 <#macro checkbox2 label="" path="" id="" classes="">
@@ -327,12 +347,12 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<@spring.bind path/>
 		<input id="${id}" name="${spring.status.expression}" checked="${spring.status.value}" type="checkbox" class="${classes}"/><b>${label}</b>
 	<#else>
-		<input id="${id}" type="checkbox" class="${classes}"/><b>${label}</b>
+		<input id="${id}" type="checkbox" class="${classes}" /><b>${label}</b>
 	</#if>	
 	</div>
 </#macro>
 
-<#macro checkbox label="" path="" id="" classes=""> 
+<#macro checkbox label="" path="" id="" classes="" readonly=false> 
 	<div class="form-group">
 		<#if label!="">
 			<div class="input-panel input-label">
@@ -342,26 +362,26 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<div class="input-panel input-checkbox-panel">	
 			<#if path!="">
 				<@spring.bind path/>
-				<input id="${id}" name="${spring.status.expression}" <#if spring.status.value=="true" >checked </#if> type="checkbox" class="${classes}"/>
+				<input id="${id}" name="${spring.status.expression}" <#if spring.status.value=="true" >checked </#if> type="checkbox" class="${classes}" <#if readonly>readonly</#if> />
 				<input type="hidden" value="on" name="_${spring.status.expression}"/>
 			<#else>
-				<input id="${id}" type="checkbox" class="${classes}"/>
+				<input id="${id}" type="checkbox" class="${classes}" <#if readonly>readonly</#if> />
 			</#if>	
 		</div>
 	</div>
 </#macro>
 
-<#macro select label="" multiple=false combobox=false path="" id="" classes="" options="">
+<#macro select label="" multiple=false combobox=false path="" id="" classes="" options="" readonly=false>
 	<div class="form-group" <#if combobox || multiple>style="margin-bottom: 5px;"</#if>>
 		<#if label!="">
-			<div class="input-panel input-label" <#if multiple>style="position: relative; bottom: 54px;"</#if> <#if combobox>style="position: relative; bottom: 10px;"</#if>>
+			<div class="input-panel input-label" <#if multiple>style="position: relative; bottom: 54px;"</#if> <#if combobox>style="position: relative; bottom: 10px;"</#if> >
 				<label>${label}</label>
 			</div>
 		</#if>
 		<div class="input-panel">
 		<#if path!="">
 			<@spring.bind path/>
-			<select id="${id}" name="${spring.status.expression}" <#if multiple>multiple </#if>class="<#if combobox>combobox </#if>form-control input-sm ${classes}">
+			<select id="${id}" name="${spring.status.expression}" <#if multiple>multiple </#if>class="<#if combobox>combobox </#if>form-control input-sm ${classes} " <#if readonly>disabled</#if>>
 				<#if options?? && options?is_hash>
 					<#list options?keys as option>
 						<option value="${option}" <#if option == spring.status.value>selected</#if>>${options[option]}</option>
@@ -369,7 +389,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 				</#if>
 			</select>
 		<#else>
-			<select id="${id}" <#if multiple>multiple </#if>class="<#if combobox>combobox </#if> form-control input-sm ${classes}">
+			<select id="${id}" <#if multiple>multiple </#if>class="<#if combobox>combobox </#if> form-control input-sm ${classes}" <#if readonly>disabled</#if>>
 				<#if options?? && options?is_hash>
 					<#list options?keys as option>
 						<option value="${option}">${options[option]}</option>
