@@ -17,7 +17,6 @@ public class LocalTimeEditor extends PropertiesEditor {
 		} else {
 			return "";
 		}
-
 	}
 
 	@Override

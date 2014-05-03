@@ -36,4 +36,8 @@ public class PatientServiceImpl extends AbstractServiceImpl<PatientEntity>
 		}
 		return result;
 	}
+
+	public List<PatientEntity> findAllOrdered() {
+		return patientDao.findAllOrdered();
+	}
 }
