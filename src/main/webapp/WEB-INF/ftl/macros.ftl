@@ -95,13 +95,15 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap.min.css" />
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-timepicker.min.css" />
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/datepicker3.css" />
+		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-combobox.css" />
 		
 		<script type="text/javascript" src="/Przychodnia/js/jquery.min.js"></script>		
 		<script type="text/javascript" src="/Przychodnia/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.js"></script>
 		<script type="text/javascript" src="/Przychodnia/js/bootstrap-timepicker.min.js"></script>
 		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.pl.js"></script>
-
+		<script type="text/javascript" src="/Przychodnia/js/bootstrap-combobox.js"></script>
+		
 		<style>
 			body {  
 				min-width: ${windowWidth.minWindowWidth}; 
@@ -180,6 +182,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 					showMeridian: false,
 					defaultTime: '00:00'
 				});
+        		$(".combobox").combobox();
         
 				$('.close-message').click(function(){
 					$('.message').slideUp();
@@ -210,7 +213,28 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 						fullscreen = "no";
 						break;	
 				}
-				window.open(url, "_blank","width="+width+",height="+height)
+				window.open(url, "_blank","width="+width+",height="+height);
+			}
+			
+			function sendPost(path, params, method) {
+			    method = method || "post"; 
+			    var form = document.createElement("form");
+			    form.setAttribute("method", method);
+			    form.setAttribute("action", path);
+			
+			    for(var key in params) {
+			        if(params.hasOwnProperty(key)) {
+			            var hiddenField = document.createElement("input");
+			            hiddenField.setAttribute("type", "hidden");
+			            hiddenField.setAttribute("name", key);
+			            hiddenField.setAttribute("value", params[key]);
+			
+			            form.appendChild(hiddenField);
+			         }
+			    }
+			
+			    document.body.appendChild(form);
+			    form.submit();
 			}
 		</script>
 		<#nested />
@@ -327,17 +351,17 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 	</div>
 </#macro>
 
-<#macro select label="" multiple=false path="" id="" classes="" options="">
-	<div class="form-group">
+<#macro select label="" multiple=false combobox=false path="" id="" classes="" options="">
+	<div class="form-group" <#if combobox || multiple>style="margin-bottom: 5px;"</#if>>
 		<#if label!="">
-			<div class="input-panel input-label" <#if multiple>style="position: relative; bottom: 54px;"</#if>>
+			<div class="input-panel input-label" <#if multiple>style="position: relative; bottom: 54px;"</#if> <#if combobox>style="position: relative; bottom: 10px;"</#if>>
 				<label>${label}</label>
 			</div>
 		</#if>
 		<div class="input-panel">
 		<#if path!="">
 			<@spring.bind path/>
-			<select id="${id}" name="${spring.status.expression}" <#if multiple>multiple </#if>class="form-control input-sm ${classes}">
+			<select id="${id}" name="${spring.status.expression}" <#if multiple>multiple </#if>class="<#if combobox>combobox </#if>form-control input-sm ${classes}">
 				<#if options?? && options?is_hash>
 					<#list options?keys as option>
 						<option value="${option}" <#if option == spring.status.value>selected</#if>>${options[option]}</option>
@@ -345,7 +369,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 				</#if>
 			</select>
 		<#else>
-			<select id="${id}" <#if multiple>multiple </#if>class="form-control input-sm ${classes}">
+			<select id="${id}" <#if multiple>multiple </#if>class="<#if combobox>combobox </#if> form-control input-sm ${classes}">
 				<#if options?? && options?is_hash>
 					<#list options?keys as option>
 						<option value="${option}">${options[option]}</option>

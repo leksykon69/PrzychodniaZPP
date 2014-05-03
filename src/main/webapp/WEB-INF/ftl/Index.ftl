@@ -7,6 +7,7 @@
 		<@mac.input label = "TextInput" placeholder="Wpisz coś"/>
 		<@mac.input label = "Password" placeholder="Wpisz hasło" password=true />
 		<@mac.select label = "Select" options=SampleCombobox />
+		<@mac.select label = "Combobox" combobox=true options=SampleCombobox />
 		<@mac.select label = "MultiSelect" multiple=true options=SampleCombobox />
 		<@mac.datepicker label="DatePicker" />
 		<@mac.timepicker label="TimePicker" />
