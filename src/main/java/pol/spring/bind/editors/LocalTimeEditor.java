@@ -1,16 +1,19 @@
 package pol.spring.bind.editors;
 
 import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.propertyeditors.PropertiesEditor;
 
 public class LocalTimeEditor extends PropertiesEditor {
 
+
 	@Override
 	public String getAsText() {
+
 		Object value = getValue();
 		if (value instanceof LocalTime) {
 			LocalTime time = (LocalTime) value;
-			return time.getHourOfDay() + ":" + time.getMinuteOfHour();
+			return DateTimeFormat.shortTime().print(time);
 		} else {
 			return "";
 		}
