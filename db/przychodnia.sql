@@ -7,9 +7,6 @@
 -- Wersja serwera: 5.5.27
 -- Wersja PHP: 5.4.7
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
 --
 -- Baza danych: `przychodnia`
 --
@@ -92,8 +89,8 @@ CREATE TABLE IF NOT EXISTS `permission_role` (
   `role_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `permission_role_role_FK` (`role_id`),
-  UNIQUE KEY `permission_role_permission_FK` (`permission_id`)
+  KEY `permission_role_role_FK` (`role_id`),
+  KEY `permission_role_permission_FK` (`permission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -137,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_role_FK` (`role_id`)
+  KEY `user_role_FK` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -204,6 +201,3 @@ ALTER TABLE `visits`
   ADD CONSTRAINT `visits_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `visits_ibfk_3` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
