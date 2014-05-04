@@ -82,6 +82,11 @@ public class VisitsListController extends AbstractController {
 		model.addAttribute(FORM, form);
 	}
 
+	@Override
+	protected String getPageTitle() {
+		return super.getPageTitle() + " - Lista Wizyt";
+	}
+
 	@ModelAttribute(DOCTORS)
 	public Map<String, String> getDoctors() {
 		return doctorService.getDoctorComboOptions(true);

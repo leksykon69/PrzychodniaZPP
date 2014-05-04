@@ -43,13 +43,13 @@
 				</@mac.row>
 				<@mac.row>
 					<@mac.rowElement>
-						<@mac.select path="visitListForm.doctor" options=doctors label="Lekarz" />
+						<@mac.select path="visitListForm.doctor" options=doctors label="Lekarz" combobox=true/>
 					</@mac.rowElement>
 					<@mac.rowElement>
-						<@mac.select path="visitListForm.patient" options=patients label="Pacjent" />
+						<@mac.select path="visitListForm.patient" options=patients label="Pacjent" combobox=true />
 					</@mac.rowElement>
 					<@mac.rowElement>
-						<@mac.select path="visitListForm.room" label="Pokój" />	
+						<@mac.select path="visitListForm.room" label="Pokój" combobox=true/>	
 					</@mac.rowElement>
 				</@mac.row>
 			</div>

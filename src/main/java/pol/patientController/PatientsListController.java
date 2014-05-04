@@ -28,8 +28,18 @@ public class PatientsListController extends AbstractController {
 	
 	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, params = "remove")
 	public String remove(Model model, @RequestParam("id") Integer id) {
-		patientService.delete(patientService.find(id));
-		addSuccessMessage(model, "Pomyślnie usunięto pacjenta");
+		try {
+			patientService.delete(patientService.find(id));
+			addSuccessMessage(model, "Pomyślnie usunięto pacjenta");
+		} catch (Exception e) {
+			addErrorMessage(model,
+					"Nie udało się usunąć pacjenta. Do pacjenta są przypisane wizyty.");
+		}
 		return process(model);
+	}
+
+	@Override
+	protected String getPageTitle() {
+		return super.getPageTitle() + " - Lista Pacjentów";
 	}
 }

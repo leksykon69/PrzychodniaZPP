@@ -172,6 +172,12 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 			*.no-padding{
 				padding: 0px;
 			}
+			
+			*.form-control.error{
+				color: red;
+				border-color: red;
+				background-color: #fff4f4;
+			}
 		</style>
 		
 		<script>
@@ -191,7 +197,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 					defaultTime: '00:00'
 				});
         		$(".combobox").combobox();
-        
+				$(".error").tooltip();        
 				$('.close-message').click(function(){
 					$('.message').slideUp();
 				});
@@ -199,6 +205,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 				$('.close-button').click(function(){
 					window.close();
 				});
+				
 				
 			});
 			
@@ -321,7 +328,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<div class="input-panel">
 			<#if path!="">
 				<@spring.bind path/>	
-				<input id="${id}" name="${spring.status.expression}" value="${spring.status.value?default("")}" type="<#if password>password<#else>text</#if>" class="form-control input-sm ${classes}" placeholder="${placeholder}" <#if readonly>readonly</#if> />
+				<input id="${id}" name="${spring.status.expression}" <#if spring.status.error>data-toggle="tooltip" title="<#list spring.status.errorMessages as error>${error} </#list>"</#if> value="${spring.status.value?default("")}" type="<#if password>password<#else>text</#if>" class="form-control input-sm <#if spring.status.error>error </#if>${classes}" placeholder="${placeholder}" <#if readonly>readonly</#if> />
 			<#else>
 				<input id="${id}" type="<#if password>password<#else>text</#if>" class="form-control input-sm ${classes}" placeholder="${placeholder}" <#if readonly>readonly</#if> />
 			</#if>
@@ -334,7 +341,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<label>${label}</label>
 		<#if path!="">
 			<@spring.bind path/>
-			<textarea id="${id}" name="${spring.status.expression}" class="form-control ${classes}" rows="${rows}" <#if readonly>readonly</#if>>${spring.status.value?default("")}</textarea>
+			<textarea id="${id}" name="${spring.status.expression}" <#if spring.status.error>data-toggle="tooltip" title="<#list spring.status.errorMessages as error>${error} </#list>"</#if> class="form-control <#if spring.status.error>error </#if>${classes}" rows="${rows}" <#if readonly>readonly</#if>>${spring.status.value?default("")}</textarea>
 		<#else>
 			<textarea id="${id}" class="form-control ${classes}" rows="${rows}" <#if readonly>readonly</#if>></textarea>
 		</#if>	
@@ -381,7 +388,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<div class="input-panel">
 		<#if path!="">
 			<@spring.bind path/>
-			<select id="${id}" name="${spring.status.expression}" <#if multiple>multiple </#if>class="<#if combobox>combobox </#if>form-control input-sm ${classes} " <#if readonly>disabled</#if>>
+			<select id="${id}" name="${spring.status.expression}" <#if spring.status.error>data-toggle="tooltip" title="<#list spring.status.errorMessages as error>${error} </#list>"</#if> <#if multiple>multiple </#if>class="<#if combobox>combobox </#if>form-control input-sm <#if spring.status.error>error </#if>${classes} " <#if readonly>disabled</#if>>
 				<#if options?? && options?is_hash>
 					<#list options?keys as option>
 						<option value="${option}" <#if option == spring.status.value>selected</#if>>${options[option]}</option>
@@ -412,7 +419,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 			<div class="input-group date">
 			<#if path!="">	
 				<@spring.bind path/>				
-				<input id="${id}" name="${spring.status.expression}" type="text" class="form-control input-sm" value="${spring.status.value}" readonly>
+				<input id="${id}" name="${spring.status.expression}" <#if spring.status.error>data-toggle="tooltip" title="<#list spring.status.errorMessages as error>${error} </#list>"</#if> type="text" class="form-control input-sm <#if spring.status.error>error </#if>" value="${spring.status.value}" readonly>
 			<#else>
 				<input id="${id}" type="text" class="form-control input-sm" readonly>
 			</#if>	
@@ -433,7 +440,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 			<div class="input-group bootstrap-timepicker">
 			<#if path!="">	
 				<@spring.bind path/>
-				<input id="${id}" name="${spring.status.expression}" value="${spring.status.value}" type="text" class="form-control input-sm" readonly>
+				<input id="${id}" name="${spring.status.expression}" <#if spring.status.error>data-toggle="tooltip" title="<#list spring.status.errorMessages as error>${error} </#list>"</#if> value="${spring.status.value}" type="text" class="form-control input-sm <#if spring.status.error>error </#if>" readonly>
 			<#else>	
 				<input id="${id}" type="text" class="form-control input-sm" readonly>
 			</#if>

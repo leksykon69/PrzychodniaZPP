@@ -1,4 +1,16 @@
-<@mac.header />
+<@mac.header>
+	<script>
+		$('document').ready(function(){
+			$(".edit-button").click(function(){
+				openNewWindow("/Przychodnia/patients/edit?id="+$(this).data("id"), "medium");
+			});
+			$(".remove-button").click(function(){
+				if(confirm('Czy na pewno chcesz usunąć pacjenta? Po usunięciu użytkownik nadal pozostanie w bazie.'))
+					sendPost("", {id: $(this).data("id"), remove: "remove"});
+			});
+		})
+	</script>	
+</@mac.header>
 	<h1><b>Lista Pacjentów</b></h1>
 	<@mac.panel>
 		<table class="table table-striped table-hover">
