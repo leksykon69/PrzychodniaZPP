@@ -22,7 +22,7 @@
 					<@mac.select path="visitEditForm.visit.patient" options=patients label="Pacjent" />
 				</@mac.rowElement>
 				<@mac.rowElement>
-					<@mac.select path="visitEditForm.visit.room" options=rooms label="Pokój" readonly=true/>	
+					<@mac.select path="visitEditForm.visit.room" options=rooms label="Pokój" readonly=true />
 				</@mac.rowElement>
 			</@mac.row>
 			<@mac.textarea path="visitEditForm.visit.description"label="Opis wizyty" />

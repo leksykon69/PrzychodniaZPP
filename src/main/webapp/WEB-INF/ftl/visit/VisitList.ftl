@@ -49,7 +49,7 @@
 						<@mac.select path="visitListForm.patient" options=patients label="Pacjent" combobox=true />
 					</@mac.rowElement>
 					<@mac.rowElement>
-						<@mac.select path="visitListForm.room" label="Pokój" combobox=true/>	
+						<@mac.select path="visitListForm.room" options=rooms label="Pokój" combobox=true/>	
 					</@mac.rowElement>
 				</@mac.row>
 			</div>

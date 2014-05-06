@@ -14,4 +14,6 @@ public interface AbstractService<T> {
 	public T save(T obj);
 
 	public List<T> saveAll(Collection<T> obj);
+
+	public Long getCount();
 }

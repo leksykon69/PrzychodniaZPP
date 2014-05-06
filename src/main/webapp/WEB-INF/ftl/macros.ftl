@@ -378,7 +378,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 	</div>
 </#macro>
 
-<#macro select label="" multiple=false combobox=false path="" id="" classes="" options="" readonly=false>
+<#macro select label="" multiple=false combobox=false path="" id="" classes="" options="" readonly=false >
 	<div class="form-group" <#if combobox || multiple>style="margin-bottom: 5px;"</#if>>
 		<#if label!="">
 			<div class="input-panel input-label" <#if multiple>style="position: relative; bottom: 54px;"</#if> <#if combobox>style="position: relative; bottom: 10px;"</#if> >

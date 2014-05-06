@@ -19,9 +19,7 @@ import pol.baseEntity.AbstractEntity;
 @Table(name = "visit")
 public class VisitEntity extends AbstractEntity {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GenericGenerator(name = "VisitAutoincrement", strategy = "increment")

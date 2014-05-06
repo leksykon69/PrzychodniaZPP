@@ -5,10 +5,14 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.springframework.stereotype.Repository;
 
 import pol.abstractDao.AbstractDaoImpl;
+import pol.entity.DoctorEntity;
+import pol.entity.PatientEntity;
+import pol.entity.RoomEntity;
 import pol.entity.VisitEntity;
 import pol.visit.dao.VisitDao;
 import pol.visitsController.AbstractSelectionVisitForm;
@@ -16,6 +20,8 @@ import pol.visitsController.AbstractSelectionVisitForm;
 @Repository
 public class VisitDaoImpl extends AbstractDaoImpl<VisitEntity> implements
 		VisitDao {
+
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	public VisitDaoImpl() {
 		super(VisitEntity.class);
@@ -25,18 +31,19 @@ public class VisitDaoImpl extends AbstractDaoImpl<VisitEntity> implements
 	public List<VisitEntity> getVisitsListByForm(AbstractSelectionVisitForm form) {
 		StringBuilder queryText = new StringBuilder(
 				"from VisitEntity where 1=1");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		if (form.getDateFrom() != null) {
 			queryText.append(" and startTime >= '"
-					+ sdf.format(form.getDateFrom().toDate()) + "'");
+					+ dateFormat.format(form.getDateFrom().toDate()) + "'");
 			queryText.append(" and endTime >= '"
-					+ sdf.format(form.getDateFrom().toDate()) + "'");
+					+ dateFormat.format(form.getDateFrom().toDate()) + "'");
 		}
 		if (form.getDateTo() != null) {
 			queryText.append(" and startTime <= '"
-					+ sdf.format(form.getDateTo().plusDays(1).toDate()) + "'");
+					+ dateFormat.format(form.getDateTo().plusDays(1).toDate())
+					+ "'");
 			queryText.append(" and endTime <= '"
-					+ sdf.format(form.getDateTo().plusDays(1).toDate()) + "'");
+					+ dateFormat.format(form.getDateTo().plusDays(1).toDate())
+					+ "'");
 		}
 		if (form.getDoctor() != null) {
 			queryText.append(" and doctor.id = '" + form.getDoctor().getId()
@@ -72,4 +79,52 @@ public class VisitDaoImpl extends AbstractDaoImpl<VisitEntity> implements
 		return query.getResultList();
 	}
 
+
+	@SuppressWarnings("unchecked")
+	public List<VisitEntity> findByDoctor(DoctorEntity doctor,
+			DateTime dateFrom, DateTime dateTo) {
+		StringBuilder queryText = new StringBuilder(
+				"from VisitEntity e where e.doctor.id = ");
+		queryText.append(doctor.getId());
+		appendDateCondition(dateFrom, dateTo, queryText);
+		return getEntityManager().createQuery(queryText.toString())
+				.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<VisitEntity> findByPatient(PatientEntity patient,
+			DateTime dateFrom, DateTime dateTo) {
+		StringBuilder queryText = new StringBuilder(
+				"from VisitEntity e where e.patient.id = ");
+		queryText.append(patient.getId());
+		appendDateCondition(dateFrom, dateTo, queryText);
+		return getEntityManager().createQuery(queryText.toString())
+				.getResultList();
+	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<VisitEntity> findByRoom(RoomEntity room, DateTime dateFrom,
+			DateTime dateTo) {
+		StringBuilder queryText = new StringBuilder(
+				"from VisitEntity e where e.doctor.id = ");
+		queryText.append(room.getId());
+		appendDateCondition(dateFrom, dateTo, queryText);
+		return getEntityManager().createQuery(queryText.toString())
+				.getResultList();
+
+	}
+	
+	private void appendDateCondition(DateTime dateFrom, DateTime dateTo,
+			StringBuilder queryText) {
+		if (dateFrom != null) {
+			queryText.append(" and startTime >= '"
+					+ dateFormat.format(dateFrom.toDate()) + "'");
+		}
+		if (dateTo != null) {
+			queryText.append(" and startTime <= '"
+					+ dateFormat.format(dateTo.plusDays(1).toDate()) + "'");
+		}
+		queryText.append("order by e.startTime");
+	}
 }

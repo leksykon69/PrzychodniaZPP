@@ -10,4 +10,6 @@ public interface AbstractDao<T> {
     public void delete(T obj);
 
 	public T saveOrUpdate(T obj);
+
+	public Long getCount();
 }

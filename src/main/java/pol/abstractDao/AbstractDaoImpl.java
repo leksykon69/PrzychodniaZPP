@@ -56,4 +56,11 @@ public abstract class AbstractDaoImpl<T extends IEntity> implements
 	public List<T> findAll() {
 		return em.createQuery("from " + type.getSimpleName()).getResultList();
 	}
+
+	@Transactional
+	public Long getCount(){
+		return (Long) em.createQuery(
+				"select count(*) from " + type.getSimpleName())
+				.getSingleResult();
+	}
 }

@@ -34,4 +34,8 @@ public abstract class AbstractServiceImpl<T> implements AbstractService<T> {
 		return result;
 	}
 
+	public Long getCount() {
+		return getDao().getCount();
+	}
+
 }

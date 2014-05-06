@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import pol.abstractDao.AbstractDao;
 import pol.abstractService.AbstractServiceImpl;
 import pol.entity.DoctorEntity;
+import pol.entity.PatientEntity;
 import pol.entity.RoomEntity;
 import pol.entity.VisitEntity;
 import pol.utils.ProjectUtils;
@@ -148,5 +149,20 @@ public class VisitServiceImpl extends AbstractServiceImpl<VisitEntity>
 
 	public List<VisitEntity> getVisitsByForm(AbstractSelectionVisitForm form) {
 		return ((VisitDao) getDao()).getVisitsListByForm(form);
+	}
+
+	public List<VisitEntity> findByRoom(RoomEntity room, DateTime dateFrom,
+			DateTime dateTo) {
+		return visitDao.findByRoom(room, dateFrom, dateTo);
+	}
+
+	public List<VisitEntity> findByPatient(PatientEntity patient,
+			DateTime dateFrom, DateTime dateTo) {
+		return visitDao.findByPatient(patient, dateFrom, dateTo);
+	}
+
+	public List<VisitEntity> findByDoctor(DoctorEntity doctor,
+			DateTime dateFrom, DateTime dateTo) {
+		return visitDao.findByDoctor(doctor, dateFrom, dateTo);
 	}
 }
