@@ -2,10 +2,13 @@ package pol.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import pol.baseEntity.AbstractEntity;
 
@@ -22,6 +25,8 @@ public class RoomEntity extends AbstractEntity{
 	public static final String FIND_ALL_ORDERED = "RoomEntity.findAllOrdered";
 
 	@Id
+	@GenericGenerator(name = "RoomAutoincrement", strategy = "increment")
+	@GeneratedValue(generator = "RoomAutoincrement")
 	private Integer id;
 
 	@Column(name = "number")
