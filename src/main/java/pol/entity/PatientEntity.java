@@ -1,5 +1,6 @@
 package pol.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class PatientEntity extends AbstractEntity{
 	@Id
 	private Integer id;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.MERGE)
 	private UserEntity user;
 
 	@Column(name = "pesel")

@@ -27,6 +27,7 @@ public abstract class AbstractController {
 	public static final String MENU = "menu";
 	public static final String MESSAGE = "message";
 	public static final String WINDOW_WIDTH = "windowWidth";
+	public static final String REFRESH_PARENT = "refreshParent";
 	
 	protected static String pageTitle= "Przychodnia";
 
@@ -78,6 +79,10 @@ public abstract class AbstractController {
 	@ModelAttribute(MENU)
 	protected List<MenuEntity> getMenu(){
 		return menuDao.findAll();
-	}	
+	}
+
+	protected void refreshParent(Model model) {
+		model.addAttribute(REFRESH_PARENT, true);
+	}
 	
 }

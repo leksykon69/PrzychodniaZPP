@@ -62,6 +62,7 @@ public class VisitEditController extends AbstractController {
 		form.setVisit(visitService.save(form.getVisit()));
 		model.addAttribute(FORM, form);
 		addSuccessMessage(model, "Pomyślnie zapisano Wizytę");
+		refreshParent(model);
 		return getViewName();
 	}
 

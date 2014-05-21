@@ -182,6 +182,10 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		
 		<script>
 			$('document').ready(function(){
+				<#if refreshParent??>
+					window.opener.location.reload(false);
+				</#if>
+			
 				$('.input-group.date').datepicker({
 					format: "d MM yyyy",
 					language: "pl",
@@ -224,7 +228,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 						break;
 					case 'short':
 						width= "500px";
-						height= "400px";
+						height= "450px";
 						fullscreen = "no";
 						break;	
 				}
