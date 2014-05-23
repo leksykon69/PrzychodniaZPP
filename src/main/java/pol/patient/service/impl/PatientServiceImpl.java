@@ -1,5 +1,6 @@
 package pol.patient.service.impl;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,10 @@ import pol.abstractService.AbstractServiceImpl;
 import pol.entity.PatientEntity;
 import pol.patient.dao.PatientDao;
 import pol.patient.service.PatientService;
+import pol.userGenerator.GeneratedUserData;
+import pol.userGenerator.UserGenerator;
+
+import com.google.common.collect.Lists;
 
 @Service
 public class PatientServiceImpl extends AbstractServiceImpl<PatientEntity>
@@ -19,6 +24,9 @@ public class PatientServiceImpl extends AbstractServiceImpl<PatientEntity>
 
 	@Autowired
 	private PatientDao patientDao;
+
+	@Autowired
+	UserGenerator userGenerator;
 
 	@Override
 	protected AbstractDao<PatientEntity> getDao() {
@@ -40,4 +48,29 @@ public class PatientServiceImpl extends AbstractServiceImpl<PatientEntity>
 	public List<PatientEntity> findAllOrdered() {
 		return patientDao.findAllOrdered();
 	}
+
+	public List<PatientEntity> generateSamplePatient() throws IOException {
+		List<PatientEntity> patients = Lists.newArrayList();
+		for (int i = 0; i < 50; i++) {
+			PatientEntity patient = new PatientEntity();
+			patient = getAndPrepareAndSavePatient(patient);
+			patients.add(patient);
+		}
+		return patients;
+	}
+
+	private PatientEntity getAndPrepareAndSavePatient(PatientEntity patient)
+			throws IOException {
+		try {
+			GeneratedUserData data = userGenerator.getGeneratedUserData();
+			patient.setUser(data.getUser());
+			patient.setPesel(data.getPesel());
+			patientDao.saveOrUpdate(patient);
+		} catch (Exception e) {
+			// "swiadomie zjadam wyjatek"
+			e.printStackTrace();
+		}
+		return patient;
+	}
+
 }
