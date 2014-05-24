@@ -1,6 +1,9 @@
 package pol.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,9 +25,10 @@ public class DoctorEntity extends AbstractEntity{
 	public static final String FIND_ALL_ORDERED = "DoctorEntity.findAllOrdered";
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private UserEntity user;
 
 	public Integer getId() {

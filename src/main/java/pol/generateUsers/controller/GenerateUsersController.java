@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pol.abstractController.AbstractController;
+import pol.doctor.service.DoctorService;
 import pol.patient.service.PatientService;
 
 
@@ -19,11 +20,12 @@ public class GenerateUsersController extends AbstractController{
 	
 	@Autowired
 	PatientService patientService;
-	
+	@Autowired
+	DoctorService doctorService;
 	
 	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 	public String generate() throws IOException{
-		
+		doctorService.generateSampleDoctors();
 		patientService.generateSamplePatient();
 		return VIEW_NAME;
 	}

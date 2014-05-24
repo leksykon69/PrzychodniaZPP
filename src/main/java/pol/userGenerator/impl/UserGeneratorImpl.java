@@ -81,7 +81,7 @@ public class UserGeneratorImpl extends AbstractServiceImpl<UserEntity> implement
 	
 	private String parseForPesel(String source){
 		Document jsoup = Jsoup.parse(source);
-		return jsoup.getElementsContainingText("PESEL:").get(14).nextElementSibling().child(0).text();
+		return jsoup.getElementsContainingText("PESEL:").get(14).nextElementSibling().text();
 	}
 
 
