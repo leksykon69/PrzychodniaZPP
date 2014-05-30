@@ -485,3 +485,180 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 	<#if value==""><#assign resultValue="Zamknij" /><#else><#assign resultValue=value /></#if>
 	<@button value=resultValue  classes="btn-primary close-button" + classes id=id name=name additional=additional submit=submit />
 </#macro>
+
+<#macro headerBezMenu>
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<title>${pageTitle!}</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-theme.min.css" />
+		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap.min.css" />
+		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-timepicker.min.css" />
+		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/datepicker3.css" />
+		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-combobox.css" />
+		
+		<script type="text/javascript" src="/Przychodnia/js/jquery.min.js"></script>		
+		<script type="text/javascript" src="/Przychodnia/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/bootstrap-timepicker.min.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.pl.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/bootstrap-combobox.js"></script>
+		
+		<style>
+			body {  
+				min-width: ${windowWidth.minWindowWidth}; 
+			}		
+		
+			*.container{
+				width: ${windowWidth.contentWidth};
+			}
+		</style>
+		
+		<style>
+			h7.menu-element{
+				border-right: 1px solid #bbbbbb;
+				border-left: 1px solid transparent;
+				height: 100%;
+				width: 192px;
+				padding: 12px;
+				padding-right: 20px;
+				word-spacing: 0;
+				cursor: pointer;
+			}
+			
+			a.menu-element{
+				text-decoration: none;
+				color: inherit;
+			}
+			
+			h7.menu-element:hover{
+				background-image: linear-gradient(to bottom,#fefefe 0,#f1f1f1 100%);
+			}
+			
+			div.menu{
+				word-spacing: -4px;
+				padding-left: 0;
+				padding-right: 0;
+			}
+			
+			div.input-panel{
+				display: inline-block;
+				width: 200px;
+			}
+			
+			div.input-label{
+				width: 120px;
+			}
+			
+			div.input-checkbox-panel{
+				text-align: center;
+			}
+			
+			div.row-element{
+				float: left;
+				width: 360px;
+				position: relative;
+				padding-left: 15px;
+			}
+			
+			*.no-padding{
+				padding: 0px;
+			}
+			
+			*.form-control.error{
+				color: red;
+				border-color: red;
+				background-color: #fff4f4;
+			}
+		</style>
+		
+		<script>
+			$('document').ready(function(){
+				$('.input-group.date').datepicker({
+					format: "d MM yyyy",
+					language: "pl",
+					weekStart: 1,
+				    todayBtn: "linked",
+				    todayHighlight: true,
+			    	autoclose: true,
+				});
+				$(".bootstrap-timepicker input[type=text]").timepicker({
+					minuteStep: 5,
+					showSeconds: false,
+					showMeridian: false,
+					defaultTime: '00:00'
+				});
+        		$(".combobox").combobox();
+				$(".error").tooltip();        
+				$('.close-message').click(function(){
+					$('.message').slideUp();
+				});
+				
+				$('.close-button').click(function(){
+					window.close();
+				});
+				
+				
+			});
+			
+			
+			function openNewWindow(url, type){
+				var height, width, fullscreen;
+				height= "600px";
+				switch(type){
+					case 'long':
+						width= "1300px";
+						fullscreen ="yes";
+						break;
+					case 'medium':
+						width= "900px";
+						fullscreen = "no";
+						break;
+					case 'short':
+						width= "500px";
+						height= "400px";
+						fullscreen = "no";
+						break;	
+				}
+				window.open(url, "_blank","width="+width+",height="+height);
+			}
+			
+			function sendPost(path, params, method) {
+			    method = method || "post"; 
+			    var form = document.createElement("form");
+			    form.setAttribute("method", method);
+			    form.setAttribute("action", path);
+			
+			    for(var key in params) {
+			        if(params.hasOwnProperty(key)) {
+			            var hiddenField = document.createElement("input");
+			            hiddenField.setAttribute("type", "hidden");
+			            hiddenField.setAttribute("name", key);
+			            hiddenField.setAttribute("value", params[key]);
+			
+			            form.appendChild(hiddenField);
+			         }
+			    }
+			
+			    document.body.appendChild(form);
+			    form.submit();
+			}
+		</script>
+		<#nested />
+	</head>
+	<body>
+
+		<div class="container">
+		<#if message??>
+		<div class="panel panel-default message">
+			<div class="panel-body ${message.type.backgroundColor}" style="padding: 10px 15px;">
+				<i class="glyphicon glyphicon-${message.type.iconName}"></i> <b>${message.message}</b><button type="button" class="close close-message" aria-hidden="true">&times;</button>	
+			</div>
+		</div>
+		</#if>
+		
+		
+</#macro>
