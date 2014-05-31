@@ -48,6 +48,7 @@ public class PatientEditController extends AbstractController {
 				addErrorMessage(model, "Podczas zapisu zmian wystąpił błąd");
 			}
 			addSuccessMessage(model, "Pomyślnie zapisano zmiany");
+			refreshParent(model);
 		}
 		return VIEW_NAME;
 	}
