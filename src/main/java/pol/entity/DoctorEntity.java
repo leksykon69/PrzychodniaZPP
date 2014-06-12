@@ -29,7 +29,7 @@ public class DoctorEntity extends AbstractEntity{
 	private Integer id;
 
 	@OneToOne(cascade=CascadeType.ALL)
-	private UserEntity user;
+	private UserEntity user = new UserEntity();
 
 	public Integer getId() {
 		return id;
