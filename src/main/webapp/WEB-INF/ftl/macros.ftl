@@ -321,7 +321,7 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 	</form>
 </#macro>
 
-<#macro input path="" id="" label="" classes="" placeholder="" password=false readonly=false>
+<#macro input path="" id="" label="" name="" classes="" placeholder="" password=false readonly=false>
 	<div class="form-group">
 		<#if label!="">
 			
@@ -333,6 +333,8 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 			<#if path!="">
 				<@spring.bind path/>	
 				<input id="${id}" name="${spring.status.expression}" <#if spring.status.error>data-toggle="tooltip" title="<#list spring.status.errorMessages as error>${error} </#list>"</#if> value="${spring.status.value?default("")}" type="<#if password>password<#else>text</#if>" class="form-control input-sm <#if spring.status.error>error </#if>${classes}" placeholder="${placeholder}" <#if readonly>readonly</#if> />
+			<#elseif name!="">
+				<input id="${id}" name="${name}" type="<#if password>password<#else>text</#if>"  />
 			<#else>
 				<input id="${id}" type="<#if password>password<#else>text</#if>" class="form-control input-sm ${classes}" placeholder="${placeholder}" <#if readonly>readonly</#if> />
 			</#if>

@@ -7,19 +7,19 @@
 
 <div style="margin-top:80px; "></div>
 	<@mac.panel title='Logowanie'>
-<form name='f' action="<c:url value='j_spring_security_check' />" method='POST'>
+<form name='f' action="/Przychodnia/j_spring_security_check" method='POST'>
 <div style="width: 400px; float:left" >
 <div style="margin-top:80px; "></div>
 <@mac.row>
 			<@mac.rowElement>
-				<@mac.input label = "Login" placeholder="Wpisz nazwę użytkownika"/>
+				<@mac.input label = "Login" name = "j_username" placeholder="Wpisz nazwę użytkownika"/>
 			</@mac.rowElement>
 		
 </@mac.row>
 
 <@mac.row>
 			<@mac.rowElement>
-				<@mac.input label = "Hasło" placeholder="Wpisz hasło" password=true />
+				<@mac.input label = "Hasło" name = "j_password" placeholder="Wpisz hasło" password=true />
 			</@mac.rowElement>
 		
 			
@@ -30,7 +30,7 @@
 			</@mac.rowElement>
 			<@mac.rowElement>
 			
-			<@mac.okButton value="Zaloguj" />
+			<@mac.okButton value="Zaloguj" submit=true/>
 			</@mac.rowElement>
 		
 			
