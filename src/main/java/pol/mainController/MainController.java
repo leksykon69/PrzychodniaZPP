@@ -13,11 +13,13 @@ import pol.abstractController.AbstractController;
 @RequestMapping( value="/")
 public class MainController extends AbstractController{
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(method={RequestMethod.GET, RequestMethod.GET})
 	public String defaultRequest(){
 		
 		return "Index";
 	}
+	
+	
 	
 	@ModelAttribute("SampleCombobox")
 	public Map<String,String> getSampleComboboxOptions(){

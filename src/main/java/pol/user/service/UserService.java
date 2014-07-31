@@ -5,4 +5,6 @@ import pol.entity.UserEntity;
 
 public interface UserService extends AbstractService<UserEntity> {
 
+	UserEntity getUserByLogin(String name);
+
 }

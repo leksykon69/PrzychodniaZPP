@@ -10,11 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import pol.baseEntity.AbstractEntity;
 
 @Entity
 @Table(name = "role")
-public class RoleEntity extends AbstractEntity{
+public class RoleEntity extends AbstractEntity implements GrantedAuthority{
 
 	/**
 	 * 
@@ -47,5 +49,9 @@ public class RoleEntity extends AbstractEntity{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getAuthority() {
+		return name;
 	}
 }

@@ -24,4 +24,9 @@ public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements
 		return userDao;
 	}
 
+	public UserEntity getUserByLogin(String name) {
+
+		return userDao.findByLogin(name);
+	}
+
 }
