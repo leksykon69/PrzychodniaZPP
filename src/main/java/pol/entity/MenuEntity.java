@@ -62,4 +62,8 @@ public class MenuEntity extends AbstractEntity {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	public String getName() {
+		return null;
+	}
 }

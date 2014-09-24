@@ -2,6 +2,7 @@ package pol.abstractService;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface AbstractService<T> {
 	
@@ -16,4 +17,6 @@ public interface AbstractService<T> {
 	public List<T> saveAll(Collection<T> obj);
 
 	public Long getCount();
+	
+	public Map<String,String> getEntityComboOptions(boolean showEmptyOption, Collection<T> obj, final String fullNameMethodName);
 }

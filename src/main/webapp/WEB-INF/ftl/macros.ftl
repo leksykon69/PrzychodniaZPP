@@ -104,6 +104,8 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-timepicker.min.css" />
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/datepicker3.css" />
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-combobox.css" />
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		
 		
 		<script type="text/javascript" src="/Przychodnia/js/jquery.min.js"></script>		
 		<script type="text/javascript" src="/Przychodnia/js/bootstrap.min.js"></script>

@@ -13,6 +13,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import pol.baseEntity.AbstractEntity;
 
 @Entity
@@ -28,7 +30,8 @@ public class UserEntity extends AbstractEntity {
 	public static final String FIND_BY_LOGIN = "findByLogin";
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GenericGenerator(name = "UserAutoincrement", strategy = "increment")
+	@GeneratedValue(generator = "UserAutoincrement")
 	private Integer id;
 
 	@Column(name = "name")

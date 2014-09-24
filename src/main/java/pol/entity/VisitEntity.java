@@ -116,4 +116,8 @@ public class VisitEntity extends AbstractEntity {
 		Date now = new Date();
 		return now.before(endTime) && now.after(startTime);
 	}
+
+	public String getName() {
+		return null;
+	}
 }

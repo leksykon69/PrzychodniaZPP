@@ -1,5 +1,9 @@
 package pol.role.service.impl;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +23,17 @@ public class RoleServiceImpl extends AbstractServiceImpl<RoleEntity> implements
 	@Override
 	protected AbstractDao<RoleEntity> getDao() {
 		return roleDao;
+	}
+	
+	public Map<String, String> getRoleComboList(boolean b) {
+		Map<String, String> result = new LinkedHashMap<String, String>();
+		if (b) {
+			result.put("", "");
+		}
+		List<RoleEntity> roles = roleDao.findAll();
+		for (RoleEntity role : roles) {
+			result.put(role.getId().toString(), role.getName());
+		}
+		return result;
 	}
 }
