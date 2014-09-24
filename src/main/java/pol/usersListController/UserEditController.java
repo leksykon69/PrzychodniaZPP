@@ -25,7 +25,7 @@ import pol.user.service.UserService;
 @RequestMapping(value="/users/edit")
 public class UserEditController  extends AbstractController{
 	
-	private static String VIEW_NAME="/user/UserEdit";
+	private static String VIEW_NAME="/users/UserEdit";
 	private static final String ROLES= "roles";
 	public static final String FORM = "userEditForm";
 	

@@ -30,7 +30,7 @@ import pol.user.service.UserService;
 @RequestMapping(value = "/users")
 public class UsersListController extends AbstractController {
 
-	private static String VIEW_NAME = "user/UsersList";
+	private static String VIEW_NAME = "users/UsersList";
 	public static final String FORM = "usersListForm";
 	private static final String USERS_LIST="userList";
 	private static final String ROLES= "roles";
