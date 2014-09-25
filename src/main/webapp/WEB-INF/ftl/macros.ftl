@@ -271,6 +271,16 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 					<a class="menu-element" href="${menuElement.url}"><h7 class="menu-element"><b>${menuElement.title}</b></h7></a>
 					</#list>
 				</#if>
+				<div class="btn-group" style="margin-left: 300px;">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      ${loginUserName!}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="/Przychodnia/logout">Wyloguj</a></li>
+    </ul>
+  </div>
+				
 				</div>
 			</div>
 		</#if>

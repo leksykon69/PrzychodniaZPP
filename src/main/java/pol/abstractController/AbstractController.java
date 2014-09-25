@@ -5,6 +5,8 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -22,6 +24,7 @@ import pol.spring.bind.editors.LocalTimeEditor;
 @SessionAttributes(AbstractController.MENU)
 public abstract class AbstractController {
 
+	private static final String LOGIN_USER_NAME = "loginUserName";
 	public static final String PAGE_TITLE = "pageTitle";
 	public static final String SHOW_MENU = "showMenu"; 
 	public static final String MENU = "menu";
@@ -47,6 +50,12 @@ public abstract class AbstractController {
 	@ModelAttribute(WINDOW_WIDTH)
 	protected WindowWidth getWindowWidth() {
 		return WindowWidth.LONG;
+	}
+	
+	@ModelAttribute(LOGIN_USER_NAME)
+	protected String getUserName() {
+		return SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal().toString();
 	}
 
 	protected void addSuccessMessage(Model model, String message){
