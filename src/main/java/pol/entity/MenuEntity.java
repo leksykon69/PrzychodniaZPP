@@ -35,9 +35,17 @@ public class MenuEntity extends AbstractEntity {
 	@Column(name = "url")
 	private String url;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "menu_role", joinColumns = { @JoinColumn(name = "menu_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
 	private List<RoleEntity> roles = new ArrayList<RoleEntity>();
+
+	public List<RoleEntity> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<RoleEntity> roles) {
+		this.roles = roles;
+	}
 
 	public Integer getId() {
 		return id;
@@ -64,6 +72,9 @@ public class MenuEntity extends AbstractEntity {
 	}
 
 	public String getName() {
+		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
@@ -13,7 +14,14 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.common.base.Objects;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
+
 import pol.entity.MenuEntity;
+import pol.entity.RoleEntity;
 import pol.frontend.Message;
 import pol.frontend.MessageType;
 import pol.frontend.WindowWidth;
@@ -21,7 +29,6 @@ import pol.menu.dao.MenuDao;
 import pol.spring.bind.editors.DateTimeEditor;
 import pol.spring.bind.editors.LocalTimeEditor;
 
-@SessionAttributes(AbstractController.MENU)
 public abstract class AbstractController {
 
 	private static final String LOGIN_USER_NAME = "loginUserName";
@@ -36,6 +43,7 @@ public abstract class AbstractController {
 
 	@Autowired
 	MenuDao menuDao;
+	
 	
 	@ModelAttribute(PAGE_TITLE)
 	protected String getPageTitle(){
@@ -86,8 +94,26 @@ public abstract class AbstractController {
 	
 	
 	@ModelAttribute(MENU)
-	protected List<MenuEntity> getMenu(){
-		return menuDao.findAll();
+	protected List<MenuEntity> getMenu() {
+		final String userRolename = Iterables.get(
+				SecurityContextHolder.getContext().getAuthentication()
+						.getAuthorities(), 0).getAuthority();
+		List<MenuEntity> menu = menuDao.findAll();
+		ImmutableList<MenuEntity> filteredMenu = FluentIterable.from(menu).filter(new Predicate<MenuEntity>() {
+					public boolean apply(MenuEntity argMenu) {
+						 return isRolesContainUseRoleName(userRolename, argMenu);
+					}
+
+					private boolean isRolesContainUseRoleName(
+							final String userRolename, MenuEntity argMenu) {
+						return Iterables.find(argMenu.getRoles(), new Predicate<RoleEntity>() {
+							public boolean apply(RoleEntity argRole) {
+								return Objects.equal(argRole.getName(), userRolename);
+							}
+						}, null)!=null;
+					}
+		}).toList();
+				return filteredMenu; 
 	}
 
 	protected void refreshParent(Model model) {
