@@ -5,7 +5,7 @@
 				openNewWindow("/Przychodnia/doctor/edit", "short");
 			});
 			$(".edit-button").click(function(){
-				openNewWindow("/Przychodnia/doctor/edit?id="+$(this).data("id"), "short");
+				openNewWindow("/Przychodnia/doctor/edit?id="+$(this).data("id"), "long");
 			});
 			$(".remove-button").click(function(){
 				if(confirm('Czy na pewno chcesz usunąć lekarza?'))
