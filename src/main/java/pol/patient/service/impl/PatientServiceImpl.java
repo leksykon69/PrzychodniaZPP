@@ -65,7 +65,7 @@ public class PatientServiceImpl extends AbstractServiceImpl<PatientEntity>
 
 	@Override
 	public PatientEntity save(PatientEntity obj) {
-		//obj.setRole(roleService.find(4));
+		obj.setRole(roleService.find(4));
 		return super.save(obj);
 	}
 	

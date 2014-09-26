@@ -15,7 +15,7 @@
 					<@mac.input path="doctor.login" label="Login" />
 				</@mac.rowElement>
 				<@mac.rowElement>
-					<@mac.input path="doctor.password" label="Hasło" />
+					<@mac.input path="doctor.password" label="Hasło" password=true/>
 				</@mac.rowElement>
 			</@mac.row>
 		</@mac.panel>

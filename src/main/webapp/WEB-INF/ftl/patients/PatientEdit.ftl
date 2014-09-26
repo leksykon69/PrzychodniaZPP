@@ -12,6 +12,14 @@
 			</@mac.row>
 			<@mac.row>
 				<@mac.rowElement>
+					<@mac.input path="patient.login" label="Login" />
+				</@mac.rowElement>
+				<@mac.rowElement>
+					<@mac.input path="patient.password" label="Hasło" password=true/>
+				</@mac.rowElement>
+			</@mac.row>
+			<@mac.row>
+				<@mac.rowElement>
 					<@mac.input path="patient.pesel" label="PESEL" />
 				</@mac.rowElement>
 				<@mac.rowElement>

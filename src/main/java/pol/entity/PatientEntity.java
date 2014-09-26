@@ -31,7 +31,7 @@ public class PatientEntity extends AbstractEntity{
 	private Integer id;
 
 	@OneToOne(cascade=CascadeType.ALL)
-	private UserEntity user;
+	private UserEntity user = new UserEntity();
 
 	@Column(name = "pesel")
 	private String pesel;
