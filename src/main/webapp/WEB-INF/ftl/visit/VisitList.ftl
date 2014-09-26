@@ -8,7 +8,11 @@
 				openNewWindow("/Przychodnia/visit/edit", "short");
 			});
 			$(".edit-button").click(function(){
+				<#if isDoctor??>
+				openNewWindow("/Przychodnia/visit/editfd?id="+$(this).data("id"), "medium");
+				<#else>
 				openNewWindow("/Przychodnia/visit/edit?id="+$(this).data("id"), "short");
+				</#if>
 			});
 			$(".remove-button").click(function(){
 				if(confirm('Czy na pewno chcesz usunąć wizytę?'))
@@ -76,8 +80,10 @@
 			</div>
 		</div>
 		<@mac.buttonGroup classes="pull-right">
-			<@mac.addButton id="addNewVisit" value="Dodaj nową wizytę" />
-			<@mac.button id="generateNewVisits" value="Wygeneruj nowe wizyty" />
+			<#if isNurce??>
+				<@mac.addButton id="addNewVisit" value="Dodaj nową wizytę" />
+				<@mac.button id="generateNewVisits" value="Wygeneruj nowe wizyty" />
+			</#if>
 			<@mac.button value="Pokaż" id="show" name="show" submit=true />
 		</@mac.buttonGroup>
 	</@mac.form>
@@ -107,7 +113,7 @@
 							<td><#if visit.doctor??>${visit.doctor.fullName}</#if></td>
 							<td><#if visit.patient??>${visit.patient.fullName}</#if></td>
 							<td><#if visit.room??>${visit.room.fullName}</#if></td>
-							<td style="padding: 0; width: 40px"><@mac.removeButton classes="remove-button" additional="data-id='"+visit.id+"'"/></td>
+							<td style="padding: 0; width: 40px"><#if isNurce??> <@mac.removeButton classes="remove-button" additional="data-id='"+visit.id+"'"/></#if></td>
 						</tr>
 					</#list>
 				</tbody>

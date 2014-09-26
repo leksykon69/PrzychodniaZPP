@@ -50,6 +50,10 @@ public class RoomController extends AbstractController {
 		refreshParent(model);
 		return VIEW_NAME;
 	}
+<<<<<<< HEAD
+	
+=======
+>>>>>>> branch 'master' of https://github.com/leksykon69/PrzychodniaZPP.git
 	@Override
 	protected boolean showMenu() {
 		return false;

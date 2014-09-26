@@ -1,7 +1,7 @@
 <#import "spring.ftl" as spring />
 
 <@mac.header />
-
+<#--
 <@mac.form>
 	<@mac.panel title="Podstawowe Kontrolki">
 		<@mac.input label = "TextInput" placeholder="Wpisz coś"/>
@@ -71,6 +71,10 @@
 			<tbody>
 		</table>
 	</@mac.panel>			
-</@mac.form>
+</@mac.form>-->
+
+<@mac.panel title="Przychodnia">
+	<h3>Witamy w systemie Przychodnia</h3>
+</@mac.panel>
 
 <@mac.footer />

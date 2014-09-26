@@ -27,7 +27,7 @@
 			<@mac.checkbox path="generateVisitsForm.saturday" label="Sobota" />
 			<@mac.checkbox path="generateVisitsForm.sunday" label="Niedziela" />
 			<@mac.input path="generateVisitsForm.duration" label="Czas trwania wizyty(w min.)" />
-			<@mac.saveButton name="generate" classes="pull-right" value="Generuj" submit=true />	
+			<@mac.saveButton id="generate" name="generate" classes="pull-right" value="Generuj" submit=true />	
 		</@mac.form>
 	</@mac.panel>
 <@mac.footer />

@@ -78,6 +78,6 @@ public class DoctorController extends AbstractController {
 
 	@Override
 	protected WindowWidth getWindowWidth() {
-		return WindowWidth.LONG;
+		return WindowWidth.MEDIUM;
 	}
 }

@@ -3,6 +3,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,8 +15,8 @@ import pol.abstractController.AbstractController;
 public class MainController extends AbstractController{
 	
 	@RequestMapping(method={RequestMethod.GET, RequestMethod.GET})
-	public String defaultRequest(){
-		
+	public String defaultRequest(Model model){
+		model.addAttribute(MENU, getMenu(model));
 		return "Index";
 	}
 	

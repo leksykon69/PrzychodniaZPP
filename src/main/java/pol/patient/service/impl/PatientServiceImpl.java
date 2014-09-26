@@ -13,6 +13,7 @@ import pol.abstractService.AbstractServiceImpl;
 import pol.entity.PatientEntity;
 import pol.patient.dao.PatientDao;
 import pol.patient.service.PatientService;
+import pol.role.service.RoleService;
 import pol.userGenerator.GeneratedUserData;
 import pol.userGenerator.UserGenerator;
 
@@ -28,6 +29,9 @@ public class PatientServiceImpl extends AbstractServiceImpl<PatientEntity>
 	@Autowired
 	UserGenerator userGenerator;
 
+	@Autowired
+	RoleService roleService;
+	
 	@Override
 	protected AbstractDao<PatientEntity> getDao() {
 		return patientDao;
@@ -59,6 +63,12 @@ public class PatientServiceImpl extends AbstractServiceImpl<PatientEntity>
 		return patients;
 	}
 
+	@Override
+	public PatientEntity save(PatientEntity obj) {
+		//obj.setRole(roleService.find(4));
+		return super.save(obj);
+	}
+	
 	private PatientEntity getAndPrepareAndSavePatient(PatientEntity patient)
 			throws IOException {
 		try {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pol.abstractController.AbstractController;
 import pol.doctor.service.DoctorService;
@@ -24,11 +25,12 @@ import pol.spring.bind.editors.RoomSelectEditor;
 import pol.visit.service.VisitService;
 
 @Controller
+@SessionAttributes(VisitsGeneratorController.FORM)
 @RequestMapping(value="/visit/generator")
 public class VisitsGeneratorController extends AbstractController{
 
 	private static final String VIEW_NAME = "/visit/VisitGenerator";
-	private static final String FORM = "generateVisitsForm";
+	public static final String FORM = "generateVisitsForm";
 	private static final String DOCTORS = "doctors";
 	private static final String ROOMS = "rooms"; 
 

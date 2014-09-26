@@ -1,6 +1,9 @@
 <@mac.header>
 	<script>
 		$('document').ready(function(){
+			$("#add").click(function(){
+				openNewWindow("/Przychodnia/patients/edit", "medium");
+			});
 			$(".edit-button").click(function(){
 				openNewWindow("/Przychodnia/patients/edit?id="+$(this).data("id"), "medium");
 			});
@@ -12,7 +15,12 @@
 	</script>	
 </@mac.header>
 	<h1><b>Lista Pacjentów</b></h1>
-	<@mac.panel>
+	<#if isNurce??><@mac.form>
+		<@mac.buttonGroup classes="pull-right">
+			<@mac.addButton id="add" value="Dodaj nowego Pacjenta" />
+		</@mac.buttonGroup>
+	</@mac.form></#if>
+	
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -27,15 +35,15 @@
 			<tbody>
 				<#list patients as patient>
 					<tr>
-						<td style="padding: 0; width: 40px" ><@mac.editButton classes="edit-button" additional="data-id='"+patient.id+"'"/></td>
+						<td style="padding: 0; width: 40px" ><#if isNurce?? || isDoctor??><@mac.editButton classes="edit-button" additional="data-id='"+patient.id+"'"/></#if></td>
 						<td>${patient.name}</td>
 						<td>${patient.surname}</td>
 						<td><#if patient.pesel??>${patient.pesel}</#if></td>
 						<td><#if patient.email??>${patient.email}</#if></td>
-						<td style="padding: 0; width: 40px"><@mac.removeButton classes="remove-button" additional="data-id='"+patient.id+"'"/></td>
+						<td style="padding: 0; width: 40px"><#if isNurce??><@mac.removeButton classes="remove-button" additional="data-id='"+patient.id+"'"/></#if></td>
 					</tr>
 				</#list>
 			</tbody>
 		</table>
-	</@mac.panel>
+
 <@mac.footer />

@@ -2,10 +2,10 @@
 	<script>
 		$('document').ready(function(){
 			$("#add").click(function(){
-				openNewWindow("/Przychodnia/doctor/edit", "short");
+				openNewWindow("/Przychodnia/doctor/edit", "medium");
 			});
 			$(".edit-button").click(function(){
-				openNewWindow("/Przychodnia/doctor/edit?id="+$(this).data("id"), "long");
+				openNewWindow("/Przychodnia/doctor/edit?id="+$(this).data("id"), "medium");
 			});
 			$(".remove-button").click(function(){
 				if(confirm('Czy na pewno chcesz usunąć lekarza?'))

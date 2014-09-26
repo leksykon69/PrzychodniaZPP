@@ -31,7 +31,7 @@ import pol.visit.service.VisitService;
 @RequestMapping(value = "/visit")
 public class VisitsListController extends AbstractController {
 
-	public static final String VIEW_NAME = "/visit/VisitList";
+	public static final String VIEW_NAME = "visit/VisitList";
 	public static final String FORM = "visitListForm";
 	public static final String DOCTORS = "doctors";
 	public static final String PATIENTS = "patients";

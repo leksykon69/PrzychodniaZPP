@@ -1,24 +1,38 @@
 package pol.abstractController;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
+import org.springframework.security.core.GrantedAuthority;
+=======
 import org.springframework.security.core.context.SecurityContext;
+>>>>>>> branch 'master' of https://github.com/leksykon69/PrzychodniaZPP.git
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+<<<<<<< HEAD
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
+=======
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+>>>>>>> branch 'master' of https://github.com/leksykon69/PrzychodniaZPP.git
 
 import pol.entity.MenuEntity;
 import pol.entity.RoleEntity;
@@ -29,6 +43,10 @@ import pol.menu.dao.MenuDao;
 import pol.spring.bind.editors.DateTimeEditor;
 import pol.spring.bind.editors.LocalTimeEditor;
 
+<<<<<<< HEAD
+//@SessionAttributes(AbstractController.MENU)
+=======
+>>>>>>> branch 'master' of https://github.com/leksykon69/PrzychodniaZPP.git
 public abstract class AbstractController {
 
 	private static final String LOGIN_USER_NAME = "loginUserName";
@@ -38,6 +56,10 @@ public abstract class AbstractController {
 	public static final String MESSAGE = "message";
 	public static final String WINDOW_WIDTH = "windowWidth";
 	public static final String REFRESH_PARENT = "refreshParent";
+	
+	public static final String IS_DOCTOR = "isDoctor";
+	public static final String IS_NURCE = "isNurce";
+	public static final String IS_ROOM = "isRoom";
 	
 	protected static String pageTitle= "Przychodnia";
 
@@ -94,6 +116,42 @@ public abstract class AbstractController {
 	
 	
 	@ModelAttribute(MENU)
+<<<<<<< HEAD
+	protected List<MenuEntity> getMenu(Model model){
+		RoleEntity userRole = getLoggedUserRole();
+		List<MenuEntity> result = menuDao.findAll();
+		if(userRole !=null ){
+			switch(userRole.getId()){
+			case 1:
+				model.addAttribute(IS_DOCTOR, true);
+				model.addAttribute(IS_NURCE, true);
+				model.addAttribute(IS_ROOM, true);
+				return getItemToMenu(result, Lists.newArrayList(1,2,3,4,5,7));
+			case 2:
+				model.addAttribute(IS_DOCTOR, true);
+				return getItemToMenu(result, Lists.newArrayList(1,3,7));
+			case 3:
+				model.addAttribute(IS_NURCE, true);
+				return getItemToMenu(result, Lists.newArrayList(1,3,7));
+			case 4:
+				model.addAttribute(IS_ROOM, true);
+				return getItemToMenu(result, Lists.newArrayList(1));
+			case 5:
+				return getItemToMenu(result, Lists.newArrayList(2,3,4,5));
+			}
+		}
+		return Lists.newArrayList();
+		
+	}
+	
+	private List<MenuEntity> getItemToMenu(List<MenuEntity> menuList, final List<Integer> indexes){
+		return Lists.newArrayList(Collections2.filter(menuList, new Predicate<MenuEntity>() {
+
+			public boolean apply(MenuEntity arg0) {
+				return indexes.contains(arg0.getId());
+			}
+		}));
+=======
 	protected List<MenuEntity> getMenu() {
 		final String userRolename = Iterables.get(
 				SecurityContextHolder.getContext().getAuthentication()
@@ -114,8 +172,17 @@ public abstract class AbstractController {
 					}
 		}).toList();
 				return filteredMenu; 
+>>>>>>> branch 'master' of https://github.com/leksykon69/PrzychodniaZPP.git
 	}
 
+	protected RoleEntity getLoggedUserRole(){
+		List<?> roles = new ArrayList<Object>(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+		if(!CollectionUtils.isEmpty(roles) && roles.get(0) instanceof RoleEntity){
+			return (RoleEntity) roles.get(0);			
+		}
+		return null;
+	}
+	
 	protected void refreshParent(Model model) {
 		model.addAttribute(REFRESH_PARENT, true);
 	}

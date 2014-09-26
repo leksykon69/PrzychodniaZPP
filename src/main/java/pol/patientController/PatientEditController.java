@@ -29,8 +29,12 @@ public class PatientEditController extends AbstractController {
 	PatientService patientService;
 
 	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
-	public String process(Model model, @RequestParam("id") Integer id) {
-		model.addAttribute(PATIENT, patientService.find(id));
+	public String process(Model model,@RequestParam(required = false, value = "id") Integer id) {
+		if(id==null){
+			model.addAttribute(PATIENT, new PatientEntity());
+		}else{
+			model.addAttribute(PATIENT, patientService.find(id));			
+		}
 		return VIEW_NAME;
 	}
 
@@ -44,11 +48,11 @@ public class PatientEditController extends AbstractController {
 		} else {
 			try {
 				model.addAttribute(PATIENT, patientService.save(patient));
+				addSuccessMessage(model, "Pomyślnie zapisano zmiany");
+				refreshParent(model);
 			} catch (Exception e) {
 				addErrorMessage(model, "Podczas zapisu zmian wystąpił błąd");
 			}
-			addSuccessMessage(model, "Pomyślnie zapisano zmiany");
-			refreshParent(model);
 		}
 		return VIEW_NAME;
 	}

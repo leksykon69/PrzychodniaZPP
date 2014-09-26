@@ -19,7 +19,7 @@
 			</@mac.row>
 			<@mac.row>
 				<@mac.rowElement>
-					<@mac.select path="visitEditForm.visit.patient" options=patients label="Pacjent" />
+					<@mac.select path="visitEditForm.visit.patient" options=patients label="Pacjent" combobox=true/>
 				</@mac.rowElement>
 				<@mac.rowElement>
 					<@mac.select path="visitEditForm.visit.room" options=rooms label="Pokój" readonly=true />
