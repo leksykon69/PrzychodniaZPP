@@ -108,12 +108,14 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 		
 		
-		<script type="text/javascript" src="/Przychodnia/js/jquery.min.js"></script>		
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.js"></script>
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap-timepicker.min.js"></script>
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.pl.js"></script>
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap-combobox.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/jquery.min.js"></script>		
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap-datepicker.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap-timepicker.min.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap-datepicker.pl.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap-combobox.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/require.js"></script>
+
 		
 		<style>
 			body {  
@@ -519,12 +521,12 @@ Słowo #NESTED po nazwie makra oznacza, że pomiędzy znacznikami danego makra m
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/datepicker3.css" />
 		<link rel="Stylesheet" type="text/css" href="/Przychodnia/css/bootstrap-combobox.css" />
 		
-		<script type="text/javascript" src="/Przychodnia/js/jquery.min.js"></script>		
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.js"></script>
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap-timepicker.min.js"></script>
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap-datepicker.pl.js"></script>
-		<script type="text/javascript" src="/Przychodnia/js/bootstrap-combobox.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/jquery.min.js"></script>		
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap-datepicker.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap-timepicker.min.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap-datepicker.pl.js"></script>
+		<script type="text/javascript" src="/Przychodnia/js/lib/bootstrap-combobox.js"></script>
 		
 		<style>
 			body {  
