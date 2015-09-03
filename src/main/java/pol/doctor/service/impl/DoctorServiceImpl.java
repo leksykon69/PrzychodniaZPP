@@ -8,17 +8,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
+
 import pol.abstractDao.AbstractDao;
 import pol.abstractService.AbstractServiceImpl;
 import pol.doctor.dao.DoctorDao;
 import pol.doctor.service.DoctorService;
 import pol.entity.DoctorEntity;
 import pol.role.service.RoleService;
-import pol.role.service.impl.RoleServiceImpl;
 import pol.userGenerator.GeneratedUserData;
 import pol.userGenerator.UserGenerator;
-
-import com.google.common.collect.Lists;
 
 @Service
 public class DoctorServiceImpl extends AbstractServiceImpl<DoctorEntity>

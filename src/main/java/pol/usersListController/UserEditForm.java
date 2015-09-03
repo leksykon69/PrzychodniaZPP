@@ -1,6 +1,5 @@
 package pol.usersListController;
 
-import pol.entity.RoleEntity;
 import pol.entity.UserEntity;
 
 public class UserEditForm {

@@ -1,7 +1,6 @@
 package pol.spring.bind.editors;
 
 import pol.abstractDao.AbstractDao;
-import pol.entity.DoctorEntity;
 import pol.entity.RoleEntity;
 import pol.role.dao.RoleDao;
 

@@ -1,9 +1,11 @@
 package pol.abstractDao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,10 +53,9 @@ public abstract class AbstractDaoImpl<T extends IEntity> implements
 		return obj;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<T> findAll() {
-		return em.createQuery("from " + type.getSimpleName()).getResultList();
+		return em.createQuery("from " + type.getSimpleName(), type).getResultList();
 	}
 
 	@Transactional
@@ -62,5 +63,12 @@ public abstract class AbstractDaoImpl<T extends IEntity> implements
 		return (Long) em.createQuery(
 				"select count(*) from " + type.getSimpleName())
 				.getSingleResult();
+	}
+
+	@Transactional
+	public List<T> findByNamedQueryAndParams(String query, Map<String, Object> params) {
+		TypedQuery<T> namedQuery = getEntityManager().createNamedQuery(query, type);
+		params.forEach((k, v) -> namedQuery.setParameter(k, v));
+		return namedQuery.getResultList();
 	}
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.ImmutableMap;
+
 import pol.abstractDao.AbstractDaoImpl;
 import pol.entity.UserEntity;
 import pol.user.dao.UserDao;
@@ -18,13 +20,8 @@ public class UserDaoImpl extends AbstractDaoImpl<UserEntity> implements UserDao 
 
 	@Transactional
 	public UserEntity findByLogin(String name) {
-		List<UserEntity> users = getEntityManager()
-				.createNamedQuery(UserEntity.FIND_BY_LOGIN)
-				.setParameter("login", name).getResultList();
-		if (!users.isEmpty()) {
-			return (UserEntity) users.get(0);
-		}
-		return null;
+		List<UserEntity> users = findByNamedQueryAndParams(UserEntity.FIND_BY_LOGIN, ImmutableMap.of("login", name));
+		return users.stream().findAny().orElse(null);
 	}
 
 }
