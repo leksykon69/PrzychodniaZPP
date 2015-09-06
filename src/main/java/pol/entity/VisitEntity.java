@@ -4,26 +4,29 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import lombok.Getter;
+import lombok.Setter;
 import pol.baseEntity.AbstractEntity;
 
 @Entity
 @Table(name = "visit")
+@Getter
+@Setter
 public class VisitEntity extends AbstractEntity {
 
-
 	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@GenericGenerator(name = "VisitAutoincrement", strategy = "increment")
-	@GeneratedValue(generator = "VisitAutoincrement")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@ManyToOne
@@ -42,38 +45,6 @@ public class VisitEntity extends AbstractEntity {
 	private Date endTime;
 	private String description;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public DoctorEntity getDoctor() {
-		return doctor;
-	}
-
-	public void setDoctor(DoctorEntity doctor) {
-		this.doctor = doctor;
-	}
-
-	public RoomEntity getRoom() {
-		return room;
-	}
-
-	public void setRoom(RoomEntity room) {
-		this.room = room;
-	}
-
-	public PatientEntity getPatient() {
-		return patient;
-	}
-
-	public void setPatient(PatientEntity patient) {
-		this.patient = patient;
-	}
-
 	public DateTime getStartTime() {
 		return new DateTime(startTime);
 	}
@@ -88,14 +59,6 @@ public class VisitEntity extends AbstractEntity {
 
 	public void setEndTime(DateTime endTime) {
 		this.endTime = endTime.toDate();
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getStartHour() {
@@ -115,9 +78,5 @@ public class VisitEntity extends AbstractEntity {
 	public boolean isActual() {
 		Date now = new Date();
 		return now.before(endTime) && now.after(startTime);
-	}
-
-	public String getName() {
-		return null;
 	}
 }
